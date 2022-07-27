@@ -11,6 +11,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
   5- another features...
 
 # actors
+<ul>
+  <li>1- doctor</li>
+  <li>2- patient</li>
+</ul>
   1- doctor
   2- patient
   3- nurse
