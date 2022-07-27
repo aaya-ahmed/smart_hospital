@@ -4,11 +4,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 # Explain
   smart hospital is a project that aims to
-  1- doctor can able to show medical history's patient
-  2- doctor can monitor the patient's condition
-  3- patient can show all his test , scan, prescriptions and appointments
-  4- patient can make appointment 
-  5- another features...
+  <ol>
+  <li> doctor can able to show medical history's patient</li>
+  <li> doctor can monitor the patient's condition</li>
+  <li> patient can show all his test , scan, prescriptions and appointments</li>
+  <li> patient can make appointment</li> 
+  <li> another features...</li>
+  </ol>
 
 # actors
 <ol>
