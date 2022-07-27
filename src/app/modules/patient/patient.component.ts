@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LogInAndOutService } from 'src/app/services/log-in-and-out.service';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-patient',
@@ -17,7 +16,7 @@ export class PatientComponent implements OnInit {
   scanflag=false;
   appointflag=false
   user:any
-  constructor(private route:Router,private service:LogInAndOutService,private cookie:CookieService) { }
+  constructor(private route:Router,private service:LogInAndOutService) { }
 
 
   ngOnInit(): void {
