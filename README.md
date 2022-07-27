@@ -11,16 +11,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
   5- another features...
 
 # actors
-<ul>
-  <li>1- doctor</li>
-  <li>2- patient</li>
-</ul>
-  1- doctor
-  2- patient
-  3- nurse
-  4- receptionist
-  5- radiologist
-  6- labratory doctor
+<ol>
+  <li>doctor</li>
+  <li>patient</li>
+  <li>nurse</li>
+  <li>receptionist</li>
+  <li>radiologist</li>
+  <li>labratory doctor</li>
+</ol>
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
@@ -34,14 +32,15 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## used libraries
-
-  1- "@angular/material": "^13.3.7"
-  2- "@auth0/angular-jwt": "^5.0.2"
-  3- "@fortawesome/fontawesome-free": "^6.1.1"
-  4- "bootstrap": "^5.1.3"
-  5- "jquery": "^3.6.0"
-  6- "jspdf": "^2.5.1"
-  7- "jspdf-autotable": "^3.5.25"
-  8- "ngx-pagination": "^5.1.1"
+<ol>
+  <li> "@angular/material": "^13.3.7"</li>
+  <li> "@auth0/angular-jwt": "^5.0.2"</li>
+  <li> "@fortawesome/fontawesome-free": "^6.1.1"</li>
+  <li> "bootstrap": "^5.1.3"</li>
+  <li> "jquery": "^3.6.0"</li>
+  <li> "jspdf": "^2.5.1"</li>
+  <li> "jspdf-autotable": "^3.5.25"</li>
+  <li> "ngx-pagination": "^5.1.1"</li>
+</ol>
 ## backend for this project 
 (https://github.com/mohab99/HMS)
