@@ -1,0 +1,93 @@
+.searching-field{
+    padding: 0.5rem 0.5rem;
+    margin: auto;
+}
+.searching-field label{
+  
+    font-size: 20px;
+    font-weight: 500;
+    
+}
+
+
+.searching-field select{
+    width: 40%;
+    padding: 0.5rem;
+    display: inline;
+    margin-left: 8px;
+}
+.lab-form{
+    box-shadow: 0 4px 8px 0 rgb(0,0,0,0.2);
+    margin: 40x;
+    background-color: rgb(252, 252, 252);
+}
+.header{
+    color: white;
+    text-align: center;
+    background-color: rgb(1, 50, 78);
+    }
+
+.patient-info{
+    width: 100%;
+    padding: 0 5%;
+    border: solid;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    height: auto;
+}
+input{
+    width: 100%;
+}
+.test-info input{
+    width: 70%;
+}
+table tr td {
+    padding: 10px;
+}
+.test-name{
+    color: rgb(1, 50, 78);
+    text-align: center;
+   
+}
+.btn{
+    font-size: larger;
+    margin: 20px;
+    margin-left: 70%;
+    color: white;
+    background-color:rgb(1, 50, 78); 
+    padding: auto;
+    width: 20%;
+}
+@media(max-width: 510px) {
+    .patient-info, .test-info ,table{
+        font-size: 10px;
+        width: 100%;
+        overflow-x: auto;
+    }
+    .header,.test-name {
+        font-size: 10px;
+        font-weight: 100;
+    }.btn{
+        width: 30%;
+        font-size: 10px;
+        text-align: center;
+    }
+    
+}
+@media(max-width: 325px) {
+    .lab-form{
+        
+        width: 100%;
+    }
+    
+  
+}
+@media print{
+  .searching-field{
+      display: none;
+  }  
+}

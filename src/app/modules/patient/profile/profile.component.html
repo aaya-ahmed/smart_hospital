@@ -1,0 +1,293 @@
+ <div class="fluid-container">
+    <div class="sec-info">
+        <div class="photo">
+            <table>
+                <tr>
+                    <td class="col1"><img [src]="srcimage"></td>
+                </tr>
+                <tr>
+                    <td class="col2">{{patient.firstName}}&nbsp;{{patient.lastName}}</td>
+                </tr>
+                <tr>
+                    <td >*******
+                    <i class="fas fa-edit" title="change password" 
+                    style="color:green;padding:0.2rem 0 ;cursor: pointer;" (click)="openpassowordmodel()"></i></td>
+                </tr>
+                <tr>
+                    <td class="col3">
+                        <span class="col3-title">Age:</span><span>{{patient.age}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col4">
+                        <input type="file" id="actual-btn" hidden (change)="uploadfile($event)"/>
+                        <label for="actual-btn" id="actual-btn">Change Image</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="main-info">
+            <table>
+                <tr>
+                    <th>Information</th>
+                    <td class="info-col1"><i class="fas fa-edit" (click)="openmodel()"></i></td>
+                </tr>
+                <tr>
+                    <th>userName</th>
+                    <td>{{patient.userName}}</td>
+                </tr>
+                
+                <tr>
+                    <th>Gender</th>
+                    <td>{{patient.gender}}</td>
+                </tr>
+                <tr>
+                    <th>Blood Type</th>
+                    <td>{{patient.bloodType}}</td>
+                </tr>
+                <tr>
+                    <th>phone Number</th>
+                    <td>{{patient.phoneNumber}}</td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td>{{patient.mail}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{patient.address}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+   <div class="main">
+        <div class="statistics">
+            <div class="row">
+                <div class="col-md-6  col-sm-12">
+                    <img class="icon" src="../assets/appoint icon.png">
+                    <h3>Your Comming Appointments </h3>
+                    <span>{{numOfAppoinments}}</span>
+                </div>
+                <div class="col-md-6  col-sm-12">
+                    <img class="icon" src="../assets/inpatient icon.png">
+                    <h3>Your Indoor Records</h3>
+                    <span>{{numOfIndoorRec}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="appoint table-responsive" >
+            <div *ngIf="appointflag;then appointtable;else noappointimg"></div>
+        </div>
+    </div>
+</div>
+ <ng-template #appointtable>
+        <table class="table app-table">
+            <thead>
+                <tr class="appoint-title"><td colspan="6">Your Appointments</td></tr>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Doctor Name</th>
+                    <th>Complaint</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Option</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of appointment ,let j =index">
+                    <td>{{i.patientName}}</td>
+                    <td>{{i.doctorName}}</td>
+                    <td>{{i.complain}}</td>
+                    <td>{{i.appointmentDate|date:'mediumDate'}}</td>
+                    <td>{{i.slotTime}}</td>
+                    <td><button class="btn canel-btn" (click)="cancelAppoinment(i,j)"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+                </tr>
+            </tbody>
+            <div *ngIf="deleteMess; then deletes"></div>
+            <ng-template #deletes>
+                <div class="alert alert-warning alert-dismissible " role="alert">
+                    <br/>
+                <strong>Are you sure that you want to cancel your Appoinment With: </strong>
+                    <pre>Doctor Name:<strong>{{deletedApp.doctorName}}</strong></pre>
+                    <pre>Date:       <strong>{{deletedApp.appointmentDate|date:'mediumDate'}}</strong></pre> 
+                    <pre>Time:       <strong>{{deletedApp.slotTime}}</strong></pre>
+                <button type="button" class="btn delete-btn"(click)="ensureCancelAppoint()">Sure</button>
+                <button type="button" class="btn cancel-btn"(click)="close()">Cancel</button>
+                </div>
+            </ng-template>
+        </table>
+        
+</ng-template>
+<ng-template #noappointimg>
+    <img class="noAppointImg" src="../assets/no appoint icon.webp">
+    <p>No Appointments Today</p>
+</ng-template>
+<div class="modal" [ngClass]="{'show':updateflag}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Update Profile</h3>
+                <button type="button" (click)="close()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="patientInfo"  (ngSubmit)="update()" class="upddate-form">
+                <div class="row">
+                    <div class="col-5">
+                        <label class="form-lable" for="patientfname">First Name</label>
+                            <input class="form-control" type="text" name="fname" id="patientfname" formControlName="fname" 
+                                [ngClass]="{'is-invalid':((patientFName.touched&& patientFName.invalid)||(submitted&&patientFName.invalid))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{((patientFName.touched&& patientFName.invalid)||(submitted&&patientFName.hasError('required')))?"This field is reqired":''}}
+                                {{((patientFName.touched&& patientFName.invalid)||(submitted&&patientFName.hasError('pattern')))?"character @ # / * etc.. not allowed":''}}
+                                {{((patientFName.touched&& patientFName.invalid)||(submitted&&patientFName.hasError('minlength')))?"min length is 3":''}}
+                                {{((patientFName.touched&& patientFName.invalid)||(submitted&&patientFName.hasError('maxlength')))?"max length is 10":''}}
+                            </div>
+                    </div>
+                   <div class="col-5">
+                        <label class="form-lable" for="patientlname">Family Name</label>
+                        <input class="form-control" type="text" name="lname" id="patientlname" formControlName="lname" 
+                                [ngClass]="{'is-invalid':((patientLName.touched&& patientLName.invalid)||(submitted&&patientLName.hasError('required')))}"
+                        />
+                        <div class="invalid-feedback">
+                            {{((patientLName.touched&& patientLName.invalid)||(submitted&&patientLName.hasError('required')))?"This field is reqired":''}}
+                            {{((patientLName.touched&& patientLName.invalid)||(submitted&&patientLName.hasError('pattern')))?"character @ # / * etc.. not allowed":''}}
+                            {{((patientLName.touched&& patientLName.invalid)||(submitted&&patientLName.hasError('minlength')))?"min length is 14":''}}
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <label class="form-lable" for="patientuname">User Name</label>
+                        <input class="form-control" value="{{patient.userName}}" type="text" name="patientuname" id="patientuname" formControlName="username" 
+                                [ngClass]="{'is-invalid':((patientUserName.touched&& patientUserName.invalid)||(submitted&&patientUserName.hasError('required')))}"
+                        />
+                        <div class="invalid-feedback">
+                            {{((patientUserName.touched&& patientUserName.invalid)||(submitted&&patientUserName.hasError('required')))?"This field is reqired":''}}
+                            {{((patientUserName.touched&& patientUserName.invalid)||(submitted&&patientUserName.hasError('pattern')))?"character @ # / * etc.. not allowed":''}}
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <label class="form-lable" for="nid">National id</label>
+                        <input class="form-control"  type="number"  name="nid" id="nid" formControlName="nid" 
+                            [ngClass]="{'is-invalid':((patientNid.touched&& patientNid.invalid)||(submitted&&patientNid.hasError('required')))}"
+                        />
+                        <div class="invalid-feedback">
+                            {{((patientNid.touched&& patientNid.invalid)||(submitted&&patientNid.hasError('required')))?"This field is reqired":''}}
+                            {{((patientNid.touched&& patientNid.invalid)||(submitted&&patientNid.hasError('pattern')))?"national id must be 14 number":''}}
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <label class="form-lable" for="age">Age</label>
+                            <input class="form-control"  type="number" name="Date-of-Birth" id="Date-of-Birth" formControlName="age" 
+                                [ngClass]="{'is-invalid':((patientAge.touched&& patientAge.invalid)||(submitted&&patientAge.hasError('required')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{((patientAge.touched&& patientAge.invalid)||(submitted&&patientAge.hasError('required')))?"This field is reqired":''}}
+                                {{((patientAge.touched&& patientAge.invalid)||(submitted&&patientAge.hasError('minlength')))?"age must be between 1 ad 90 year":''}}
+                                {{((patientAge.touched&& patientAge.invalid)||(submitted&&patientAge.hasError('maxlength')))?"age must be between 1 ad 90 year":''}}
+                            </div>
+                    </div>
+                    <div class="col-5">
+                        <label for="phone">phone Number</label>
+                        <input class="form-control" type="tel" name="phone" id="phone" formControlName="phonenumber" 
+                            [ngClass]="{'is-invalid':((patientPhone.touched&& patientPhone.invalid)||(submitted&&patientPhone.hasError('required')))}"
+                        />
+                        <div class="invalid-feedback">
+                            {{((patientPhone.touched&& patientPhone.invalid)||(submitted&&patientPhone.hasError('required')))?"This field is reqired":''}}
+                            {{((patientPhone.touched&& patientPhone.invalid)||(submitted&&patientPhone.hasError('pattern')))?"must 11 number and start with 010,011,012 or 015":''}}
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <label class="form-lable" for="Email">Email</label>
+                        <input class="form-control" type="email" name="Email" id="Email" formControlName="mail" 
+                            [ngClass]="{'is-invalid':patientMail.touched&& patientMail.invalid}"
+                        />
+                        <div class="invalid-feedback">
+                            {{((patientMail.touched&& patientMail.invalid)||(submitted&&patientMail.hasError('mail')))?"must in email format ex xx@xxxx.eg or com":''}}
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <label class="form-lable" for="gender">gender</label>
+                        <select id="gender" class="form-control" formControlName="gender"
+                            [ngClass]="{'is-invalid':((patientGender.touched&& patientGender.invalid)||(submitted&&patientGender.hasError('required')))}">
+                            <option vlaue="female">female</option>
+                            <option value="male">male</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            {{((patientGender.touched&& patientGender.invalid)||(submitted&&patientGender.hasError('required')))?"This field is reqired":''}}
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <label class="form-lable" for="bloodtype">bloodtype</label>
+                        <select id="bloodtype" class="form-control" formControlName="bloodtype"
+                            [ngClass]="{'is-invalid':((patientBloodType.touched&& patientBloodType.invalid)||(submitted&&patientBloodType.hasError('required')))}">
+                            <option vlaue="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option vlaue="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option vlaue="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option vlaue="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            {{((patientBloodType.touched&& patientBloodType.invalid)||(submitted&&patientBloodType.hasError('required')))?"This field is reqired":''}}
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <label class="form-lable" for="Address">Address</label>
+                        <input class="form-control" type="text" name="Address" id="Address" formControlName="address" />
+                    </div>
+                </div>
+                <div class="row1">
+                    <button class="update_btn"  type="submit">Update</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-success alert-dismissible  sucessmes" role="alert" [ngClass]="{'successshow':successflag}">
+        <strong>success !</strong>
+      </div>
+    <div class="alert alert-danger alert-dismissible  errormes" role="alert" [ngClass]="{'errorshow':errorflag}">
+        error!
+      </div>
+</div>
+<div class="modal" [ngClass]="{'show':passwordflag}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Update Password</h3>
+                <button type="button" (click)="openpassowordmodel()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form  [formGroup]="userpassword" (ngSubmit)="updatepassword()" class="upddate-form">
+                    <div class="row justify-content-center">
+                        <div class="col-5">
+                            <label class="form-lable" for="fname">New Password</label>
+                            <input class="form-control"  type="text" name="password" id="password" formControlName="password" 
+                            [ngClass]="{'is-invalid':((patientpassword.touched)&& patientpassword.invalid)||(submitted&&patientpassword.hasError('required'))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{((patientpassword.touched)&& patientpassword.invalid)||(submitted&&patientpassword.hasError('required'))?"This field is reqired":''}}
+                                {{patientpassword.touched&&patientpassword.hasError('minlength')?"min length 8":''}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <button class="update_btn"  type="submit">Update</button>
+                    </div>
+                </form>
+            </div> 
+        </div>
+    </div>
+    <div class="alert alert-success alert-dismissible  sucessmes" role="alert" [ngClass]="{'successshow':successflag}">
+        <strong>success !</strong>
+      </div>
+    <div class="alert alert-danger alert-dismissible  errormes" role="alert" [ngClass]="{'errorshow':errorflag}">
+        error!
+      </div>
+</div>

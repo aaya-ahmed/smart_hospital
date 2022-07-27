@@ -1,0 +1,26 @@
+<div class="fluid-container">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>date</td>
+                    <td>prediction</td>
+                    <td>precentage</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of data">
+                    <td>
+                        {{i.date}}
+                    </td>
+                    <td>
+                        {{i.prediction}}
+                    </td>
+                    <td>
+                        {{i.precentage}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

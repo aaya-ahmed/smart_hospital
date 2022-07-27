@@ -1,0 +1,123 @@
+    <div class="container1">
+        <div class="patientinformation">
+            <table>
+                <tr>
+                    <th><strong>Patient Name</strong></th>
+                    <td class="col1">{{patient.patientName}}</td>
+                </tr>
+                <tr>
+                    <th><strong>Age</strong></th>
+                    <td  class="col2">{{patient.age}}</td>
+                </tr>
+                <tr>
+                    <th><strong>Gender</strong></th>
+                    <td  class="col3">{{patient.gender}}</td>
+                   
+                </tr>
+                <tr>
+                    <th><strong>cause Of Admission</strong></th>
+                    <td  class="col4">{{patient.causeOfAdmission}}</td>
+                </tr>
+                <tr>
+                    <th><strong>oral Medical History</strong></th>
+                    <td  class="col4">{{patient.oralMedicalHistory}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="container">
+            <ul id="accordion" class="accordion">
+                <li>
+                    <div class="link1" (click)="setoldIndoorrecordsflag()">
+                        <i class="fa-solid fa-file-pen fs-3"></i>
+                       Old Indoor Recordss
+                        <i class="fa fa-chevron-down fs-4"></i>
+                    </div>
+                    <div class="hiddensection" [ngClass]="{'show':showoldIndoorrecordsflag}">
+                        <app-old-indoor-records [patient]="patient"></app-old-indoor-records>
+                    </div>
+                </li>
+                <li>
+                    <div class="link1" (click)="setvitalflag()">
+                        <i class="fa-solid fa-file-pen fs-3"></i>
+                       Vital Sign
+                        <i class="fa fa-chevron-down fs-4"></i>
+                    </div>
+                    <div class="hiddensection" [ngClass]="{'show':vitalflag}">
+                        <app-show-vital-signs [patient]="patient"></app-show-vital-signs>
+                    </div>
+                </li>
+                <li>
+                    <div class="link2" (click)="setreqscanflag()">
+                        <i class="fa-solid fa-x-ray fs-3"></i>
+                        Reqest Scan
+                        <i class="fa fa-chevron-down fs-4"></i>
+                    </div>
+                    <div class="hiddensection"  [ngClass]="{'show':reqscanflag}">
+                        <app-req-scan [patient]="patient" ></app-req-scan>
+                    </div>   
+                </li>
+                <li>
+                    <div class="link2" (click)="setscanflag()">
+                        <i class="fa-solid fa-x-ray fs-3"></i>
+                        Show Scan
+                        <i class="fa fa-chevron-down fs-4"></i>
+                    </div>
+                    <div class="hiddensection"  [ngClass]="{'show':scanflag}">
+                        <app-scan [patient]="patient" ></app-scan>
+                    </div>   
+                </li>
+                <li>
+                    <div class="link3" (click)="setreqlabflag()">
+                        <i class="fa-solid fa-flask-vial fs-3"></i>
+                        Request Lab
+                        <i class="fa fa-chevron-down fs-4"></i>
+                    </div>
+                    <div class="hiddensection"  [ngClass]="{'show':reqlabflag}">
+                        <app-req-lab [patient]="patient" [outpatientflag]="outpatientflag"></app-req-lab>
+                    </div>
+                </li>
+                <li>
+                    <div class="link3" (click)="setlabflag()">
+                        <i class="fa-solid fa-flask-vial fs-3"></i>
+                        Lab
+                        <i class="fa fa-chevron-down fs-4"></i>
+                    </div>
+                    <div class="hiddensection"  [ngClass]="{'show':labflag}">
+                        <app-lab [patient]="patient" [outpatientflag]="outpatientflag"></app-lab>
+                    </div>
+                </li>
+                <li>
+                    <div class="link4" (click)="setshowprecflag()">
+                        <i class="fa-solid fa-prescription fs-3"></i>
+                        Show Previous Prescriptions
+                        <i class="fa fa-chevron-down fs-4"></i>
+                    </div>
+                    <div class="hiddensection"  [ngClass]="{'show':showprecflag}">
+                        <app-show-prescription [patient]="patient"></app-show-prescription>
+                    </div>
+                </li>
+                <li>
+                    <div class="link5" (click)="setprecflag()">
+                        <i class="fa-solid fa-prescription fs-3"></i>
+                        Make Prescription
+                        <i class="fa fa-chevron-down fs-4"></i>
+                    </div>
+                    <div class="hiddensection"  [ngClass]="{'show':precflag}">
+                        <app-add-prescription [patient]="patient" [outpatientflag]="outpatientflag"></app-add-prescription>
+                    </div>
+                </li>
+                <li>
+                    <div class="link5" (click)="setdischargeflag()">
+                        <i class="fa-solid fa-prescription fs-3"></i>
+                        Discharge
+                        <i class="fa fa-chevron-down fs-4"></i>
+                    </div>
+                    <div class="hiddensection"  [ngClass]="{'show':dischargeflag}">
+                        <app-discharge [patient]="patient"></app-discharge>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    

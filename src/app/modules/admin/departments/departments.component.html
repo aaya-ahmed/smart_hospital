@@ -1,0 +1,173 @@
+<div class="fluid-container">
+        <!-- display loading view or page -->
+    <div *ngIf="flag;then page;else loading"></div>
+<!-- start page template -->
+    <ng-template #page>
+        <div class="container-fluid w-100">
+            <div class="d-block p-2 head m-0">
+                <button type="button "class="btn text-white btn-success"  (click)="togglemodalfunc()" data-toggle="modal" data-target="#exampleModalCenter">
+                    Add New Department    
+                </button>
+            </div>
+            <div class="table-responsive  disaplay-info">
+                <table class="table table-striped">
+                    <thead>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>State</th>
+                        <th>has clinical?</th>
+                        <th>Option</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of department|paginate: { itemsPerPage: 10, currentPage: p ,totalItems:totallength}">
+                            <td>{{i.departmentId}}</td>
+                            <td>{{i.departmentName}}</td>
+                            <td>{{i.departmentLocation}}</td>
+                            <td>
+                                <p *ngIf="i.isActive">Active</p>
+                                <p *ngIf="!i.isActive">In-Active</p>
+                            </td>
+                            <td>{{i.isClinical}}</td>
+                            <td>
+                                <button id="update_btn" (click)="updateing(i)"> <span class="fa-solid fa-pen-to-square " style="color:green " > </span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination-controls style="margin:3rem 0;float: right;" (pageChange)="p = $event"></pagination-controls> 
+        </div>
+        <div *ngIf="toggleaddmodal;then adding"></div>
+        <div *ngIf="toggleupdatemodal;then updating"></div>
+<!-- strat add doctor  template -->
+  <ng-template #adding>
+    <div class="modal fade"  id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">New Department</h3>
+                    <button type="button" (click)="togglemodalfunc()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #form="ngForm" (ngSubmit)="postdepartment(form)" >
+                        <div class="row">
+                            <div class="form-group col-sm-8 my-2">
+                                <label for="department_Name">Name </label>
+                                <input (change)="samedepartment($event)" [ngClass]="{'is-invalid':(department_Name.errors?.['required']&&form.submitted)||(department_Name.touched&&department_Name.invalid)||departmentflag}" type="text" class="form-control form-control1"
+                                 name="department_Name" id="department_Name" required minlength="6" ngModel #department_Name="ngModel"/>
+                            </div>
+                            <div *ngIf="department_Name.errors?.['required']&&form.submitted||department_Name.touched&&department_Name.errors?.['required']" class="invalid-feedback">
+                                Please enter department Name
+                            </div>
+                            <div *ngIf="department_Name.errors?.['minlength']&&department_Name.touched||form.submitted&&department_Name.errors?.['minlength']" class="invalid-feedback">
+                                min length is 6 char
+                            </div>
+                            <div class="invalid-feedback" *ngIf="departmentflag">this department is exist</div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-sm-8 my-2">
+                                <label for="location">Location</label>
+                                <input [ngClass]="{'is-invalid':location.errors?.['required']&&form.submitted||location.touched&&location.errors?.['required']||location.touched&&location.errors?.['minlength']}" type="text" 
+                                class="form-control form-control1" name="location" id="location" minlength="6" required ngModel #location="ngModel"/>
+                                <div *ngIf="location.errors?.['required']&&form.submitted||location.touched&&location.errors?.['required']" class="invalid-feedback">
+                                    Please enter department location
+                                </div>
+                                <div *ngIf="location.errors?.['minlength']&&location.touched||form.submitted&&location.errors?.['minlength']" class="invalid-feedback">
+                                    min length is 6 char
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-sm-8 my-2">
+                                <label for="clinical">this department has clinical?</label><br><br>
+                                <input type="Radio" name="clinical" Value="true" checked (change)="setclinic($event)"/>YES<br><br>
+                                <input type="Radio" name="clinical" Value="false" (change)="setclinic($event)"/>No
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4 my-1">
+                                <input type="submit" id="add_btn" value="Submit">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="alert alert-success alert-dismissible fade" role="alert" [ngClass]="{'successshow':successflag}">
+                        <strong>success !</strong>
+                      </div>
+                    <div class="alert alert-danger alert-dismissible fade errormes" role="alert" [ngClass]="{'errorshow':errorflag}">
+                        error!
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- end add doctor  template -->
+<!-- strat update doctor  template -->
+<ng-template #updating>
+    <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Update Department</h3>
+                    <button type="button" (click)="close_openform()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #updateform="ngForm" (ngSubmit)="update(updateform)" class="upddate-form">
+                        <div class="row ">
+                            <div class="form-group col-sm-8">
+                                <label for="location">Location</label>
+                                <input [ngClass]="{'is-invalid':location.errors?.['required']&&updateform.submitted||location.touched&&location.invalid}" type="text"  [(ngModel)]="newdepartment.location"class="form-control " name="location" id="location" required ngModel #location="ngModel"/>
+                                <div *ngIf="location.errors?.['required']&&updateform.submitted||location.touched&&location.invalid" class="invalid-feedback">
+                                    Please enter department location
+                                </div>
+                            </div>  
+                        </div>
+                      <div class="row">
+                            <div class="form-group col-sm-8">
+                                <label for="isActive">State</label>
+                               <select id="isActive" class="form-select" name="isActive" ngModel #isActive="ngModel">
+                                <option></option>   
+                                <option value="true" [selected]="newdepartment.isActive">Active</option>
+                                <option value="false" [selected]="!newdepartment.isActive">In-Active</option>
+                               </select>
+                        </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-sm-8 my-2">
+                                <label for="clinical">this department has clinical?</label><br><br>
+                                <input type="Radio" name="clinical" Value=true [checked]="newdepartment.clinicalDepartment" (click)="setclinic($event)"/>YES<br><br>
+                                <input type="Radio" name="clinical" Value=false [checked]="!newdepartment.clinicalDepartment" (click)="setclinic($event)"/>No
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="submit" id="update_btn1">update</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="alert alert-success alert-dismissible fade" role="alert" [ngClass]="{'successshow':successflag}">
+                        <strong>success !</strong>
+                      </div>
+                    <div class="alert alert-danger alert-dismissible fade errormes" role="alert" [ngClass]="{'errorshow':errorflag}">
+                        error!
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- end upfate doctor  template -->
+</ng-template>
+<!-- end page template -->
+
+<!-- start loading page -->
+<ng-template #loading>
+    <div class="fluid-container loading"><img src="assets/Spinner.svg" width="50px" height="50px" /></div>
+</ng-template>
+<!-- end loading page -->
+</div>

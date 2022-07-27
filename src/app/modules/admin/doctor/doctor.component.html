@@ -1,0 +1,316 @@
+<div class="fluid-container">
+<!-- display loading view or page -->
+    <div *ngIf="loadflag;then loading;else page" ></div>
+<!-- start page template -->
+<ng-template #page>
+<div *ngIf="pageflag" class="container-fluid w-100">
+    <div class="d-block p-2 head m-0">
+        <button (click)="open_close_addmodule()" class="btn text-white btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Add Doctor </button>
+    </div>
+    <div class="searching">
+        <input class="serach" type="checkbox" id="check" />
+        <div class="d-flex">
+            <label for="check"><i class="fa-solid fa-magnifying-glass "></i> &nbsp; srearch for special doctor</label>
+            <div>
+                <button class="btn" (click)="alldoctor()" disabled #allbtn>All</button>
+            </div>
+        </div>
+        <div class="searching-fields">
+            <form #docInf="ngForm" (ngSubmit)="search(docInf,allbtn)" class="row mx-auto justify-content-between py-3">
+                <div class="col-lg-3 col-md-6">
+                    <div>
+                        <label for="docdepartment">Department</label><br>
+                        <select class="form-control" name="docdepartment" id="docdepartment" ngModel #docdepartment="ngModel">
+                            <option value="" disabled></option>
+                       <option *ngFor="let i of departments" value="{{i.departmentName}}">{{i.departmentName}}</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <label for="docspecialization">Specialist</label><br>
+                    <input type="text" class="form-control" name="docspecialization" id="docspecialization" ngModel #docspecialization="ngModel"/>
+               </div>
+                <div class="col-lg-3 col-md-6">
+                    <label for="docstate">State</label><br>
+                    <select class="form-control" name="docstate" id="docstate" ngModel #docstate="ngModel">
+                        <option value="" disabled></option>
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <input type="submit" class="btn" value="search" >
+                </div>
+            </form>
+        </div>
+    </div>
+   <div *ngIf="tableflag;then table;else loading"></div>
+</div>
+<div *ngIf="!pageflag" style="margin-top:0rem; text-align:center ;">
+    No Avaliable Data<br>
+<p style="color:red">please try later</p></div>
+<ng-template #table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>username</th>
+                    <th>Name</th>
+                    <th>National Id</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>department</th>
+                    <th>Specialist</th>
+                    <th>Degree</th>
+                    <th>hiring date</th>
+                    <th>state</th>
+                    <td>Has clinical?</td>
+                    <th>Option</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of doctorlist|paginate: { itemsPerPage:5, currentPage: p ,totalItems:totallength}">
+                    <td>{{i.userName}}</td>
+                    <td>{{i.firstName}}&nbsp;{{i.lastName}}</td>
+                    <td>{{i.nationalId}}</td>
+                    <td>{{i.mail}}</td>
+                    <td>{{i.gender}}</td>
+                    <td>{{i.phoneNumber}}</td>
+                    <td>{{i.departmentName}}</td>
+                    <td>{{i.docSpecialization}}</td>
+                    <td>{{i.docDegree}}</td>
+                    <td>{{i.createdDtm |date:'shortDate'}}</td>
+                    <td><p *ngIf="i.isActive">Active</p><p *ngIf="!i.isActive">In-Active</p></td>
+                    <td><p *ngIf="i.clinicalDoctor">Yes</p><p *ngIf="!i.clinicalDoctor">No</p></td>
+                    <td>
+                        <button (click)="open_close_addmodule()" (click)="setDoctor(i)"> <span class="fa-solid fa-pen-to-square " style="color:green " > </span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <pagination-controls style="margin:3rem 0;float: right;" (pageChange)="p = $event"></pagination-controls> 
+</ng-template>
+</ng-template>
+<!-- end page template -->
+<!-- start loading page -->
+<ng-template #loading>
+    <div class="fluid-container loading"><img src="assets/Spinner.svg" /></div>
+</ng-template>
+<!-- end loading page -->
+</div>
+<!-- strat add doctor  section -->
+<div class="hidden-adding" [ngClass]="{'toggle-addmodel':ModuleFlag}">
+    <div class="modal fade"  id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3  class="modal-title">New Doctor</h3>
+                    <button type="button" (click)="open_close_addmodule()" (click)="reset()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="doctorInfo" #signForm="ngForm" (ngSubmit)="submit()">
+                        <div class="row p-3 justify-content-center ">
+                            <div class="col-md-5">
+                                <label class="form-lable" for="doctorfname">First Name</label>
+                                <input class="form-control " type="text" name="doctorfname" id="doctorfname" formControlName="firstName"
+                                [ngClass]="{'is-invalid':((doctorfname.touched&& doctorfname.invalid)||(submitted&&doctorfname.hasError('required')))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((doctorfname.touched&&doctorfname.hasError('required'))||(submitted&&doctorfname.hasError('required')))?"This field is reqired":''}}
+                                    {{doctorfname.touched&&doctorfname.hasError('minlength')?"Minimum Name length is 3":''}}
+                                    {{doctorfname.touched&&doctorfname.hasError('maxlength')?"Maxiumim Name length is 10":''}}
+                                    {{doctorfname.touched&&doctorfname.hasError('pattern')?" Only letters are allowed":''}}
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="doctorlname">Last Name</label>
+                                <input class="form-control" type="text" name="doctorlname" id="doctorlname" formControlName="lastName" 
+                                [ngClass]="{'is-invalid':((doctorlname.touched&& doctorlname.invalid)||(submitted&&doctorlname.hasError('required')))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((doctorlname.touched&&doctorlname.hasError('required'))||(submitted&&doctorlname.hasError('required')))?"This field is reqired":''}}
+                                    {{doctorlname.touched&&doctorlname.hasError('minlength')?"Minimum Name length is 3":''}}
+                                    {{doctorlname.touched&&doctorlname.hasError('maxlength')?"Maxiumim Name length is 10":''}}
+                                    {{doctorlname.touched&&doctorlname.hasError('pattern')?" Only letters are allowed":''}}
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="doctoruname">User Name</label>
+                                <input class="form-control " type="text" name="doctoruname" id="doctoruname" formControlName="userName" 
+                                [ngClass]="{'is-invalid':((doctorUserName.touched&& doctorUserName.invalid)||(submitted&&doctorUserName.hasError('required')))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((doctorUserName.touched&&doctorUserName.hasError('required'))||(submitted&&doctorUserName.hasError('required')))?"This field is reqired":''}}
+                                    {{doctorUserName.touched&&doctorUserName.hasError('pattern')?"character @ # / * etc.. not allowed":''}}
+                                </div>
+                            </div>
+                            <div class="col-md-5" [hidden]="updateflag">
+                                <label class="form-lable" for="Password">Password</label>
+                                <input class="form-control"  type="Password" name="Password" id="Password" formControlName="password"
+                                 [ngClass]="{'is-invalid':((doctorPassword.touched&& doctorPassword.invalid)||(submitted&&doctorPassword.hasError('required')))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((doctorPassword.touched&&doctorPassword.hasError('required'))||(submitted&&doctorPassword.hasError('required')))?"This field is reqired":''}}
+                                    {{doctorPassword.touched&&doctorPassword.hasError('minlength')?"please it must be at least 8 character":''}}
+                                    {{doctorPassword.touched&&doctorPassword.hasError('pattern')?"must contain @ # . only and upper or lowercase ad number":''}}
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="nationalId">National Id</label>
+                                <input class="form-control" type="number" min="0" (change)="validationntionalid($event)" name="nationalId" id="nationalId" formControlName="nationalId" 
+                                [ngClass]="{'is-invalid':((doctorNid.touched&& doctorNid.invalid)||(submitted&&doctorNid.hasError('required')||!nationalidflag))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((doctorNid.touched&&doctorNid.hasError('required'))||(submitted&&doctorNid.hasError('required')))?"This field is reqired":''}}
+                                    {{doctorNid.touched&&doctorNid.hasError('pattern')||!nationalidflag?"invalid national id":''}}
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="age">Age</label>
+                                <input class="form-control" type="number" min="20" name="Date-of-Birth" id="Date-of-Birth" formControlName="age" 
+                                [ngClass]="{'is-invalid':((doctorAge.touched&& doctorAge.invalid)||(submitted&&doctorAge.hasError('required')))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((doctorAge.touched&&doctorAge.hasError('required'))||(submitted&&doctorAge.hasError('required')))?"This field is reqired":''}}
+                                    {{doctorAge.touched&&doctorAge.hasError('min')?"age must be between 20 ad 90 year":''}}
+                                    {{doctorAge.touched&&doctorAge.hasError('max')?"age must be between 20 ad 90 year":''}}
+                                </div>
+                            </div>            
+                            <div class="col-md-5">
+                                <label class="form-lable" for="gender">gender</label>
+                                <select id="gender" class="form-control" formControlName="gender"
+                                [ngClass]="{'is-invalid':((doctorGender.touched&& doctorGender.invalid)||(submitted&&doctorGender.hasError('required')))}">
+                                    <option vlaue="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    {{((doctorGender.touched&&doctorGender.hasError('required'))||(submitted&&doctorGender.hasError('required')))?"This field is reqired":''}}
+                                    </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="bloodtype">bloodtype</label>
+                                <select id="bloodtype" class="form-control" formControlName="bloodType"
+                                [ngClass]="{'is-invalid':((doctorBloodType.touched&& doctorBloodType.invalid))}">
+                                    <option vlaue="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option vlaue="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option vlaue="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option vlaue="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="Email">Email</label>
+                                <input class="form-control" type="email" name="Email" id="Email" formControlName="mail" 
+                                [ngClass]="{'is-invalid':((doctorMail.touched&& doctorMail.invalid)||(submitted&&doctorMail.hasError('email')))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((doctorMail.touched&&doctorMail.hasError('email'))||(submitted&&doctorMail.hasError('email')))?"must in email format ex xx@xxxx.eg or com":''}}
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="phone">phone</label>
+                                <input class="form-control" type="tel" name="phone" id="phone" formControlName="phoneNumber" 
+                                [ngClass]="{'is-invalid':((doctorPhone.touched&& doctorPhone.invalid)||(submitted&&doctorPhone.hasError('required')))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((doctorPhone.touched&&doctorPhone.hasError('required'))||(submitted&&doctorPhone.hasError('required')))?"This field is reqired":''}}
+                                    {{doctorPhone.touched&&doctorPhone.hasError('pattern')?"must 11 number and start with 010,011,012 or 015":''}}
+                                </div>
+                            </div>
+                            <div class="col-md-5 justify-content-center">
+                                <label class="form-lable label1" for="address">address</label>
+                                <input class="form-control form-control1" value="" type="text" name="address" id="address" formControlName="address"/>
+                            </div>
+                            <div class="col-md-5 justify-content-center">
+                                <label class="form-lable" for="Department">Department</label>
+                                <select id="Department" class="form-control" formControlName="departmentName" (change)="setdepartment($event)"
+                                [ngClass]="{'is-invalid':((doctorDep.touched&&doctorDep.invalid)||(submitted&&doctorDep.hasError('required')))}">
+                                    <option vlaue=""></option>
+                                    <option *ngFor="let i of departments;let j=index" value="{{j}}">{{i.departmentName}}</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    {{((doctorDep.touched&&doctorDep.hasError('required'))||(submitted&&doctorDep.hasError('required')))?"This field is reqired":''}}
+                                    </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="specialization">specialization</label>
+                                <input type="text" id="specialization" class="form-control" formControlName="docSpecialization"
+                                [ngClass]="{'is-invalid':((doctorSpecalization.touched&& doctorSpecalization.invalid)||(submitted&&doctorSpecalization.hasError('required')))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((doctorSpecalization.touched&&doctorSpecalization.hasError('required'))||(submitted&&doctorSpecalization.hasError('required')))?"This field is reqired":''}}
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="Degree">Degree</label>
+                                <select id="Degree" class="form-control" formControlName="docDegree"
+                                [ngClass]="{'is-invalid':((doctorDeg.touched&& doctorDeg.invalid)||(submitted&&doctorDeg.hasError('required')))}">
+                                    <option></option>
+
+                                    <option value="traineedoctor">Traineer Doctor</option>
+                                    <option value="residentphysician"> Resident physician</option>
+                                    <option value="specialist">Specialist</option>
+                                    <option value="firstspecialist">First Specialist</option>
+                                    <option value="consultant">Consultant</option>
+                                    <option value="firstconsultant">First Consultant</option>
+                                    <option value="professor">Professor</option>
+                                    <option value="firstprofessor">First Professor</option>
+                                    <option value="assistantprofessor">Assistant Professor</option>
+                                    <option value="PHD">PHD</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                {{((doctorDeg.touched&&doctorDeg.hasError('required'))||(submitted&&doctorDeg.hasError('required')))?"This field is reqired":''}}
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="image">Image</label>
+                                <input type="file" id="image" class="form-control" (change)="uploadfile($event)" formControlName="image"/>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-lable" for="hiring">Hiring Date</label>
+                                <input type="date" max="{{today}}" id="hiring" class="form-control" formControlName="createdDtm"
+                                [ngClass]="{'is-invalid':((Hdate.touched&& Hdate.invalid)||(submitted&&Hdate.hasError('required')))}"/>
+                                <div class="invalid-feedback">
+                                    {{((Hdate.touched&&Hdate.hasError('required'))||(submitted&&Hdate.hasError('required')))?"This field is reqired":''}}
+                                    </div>
+                            </div>
+                            <div class="col-md-5" [hidden]="!updateflag">
+                                <label class="form-lable" for="active">Is Active</label>
+                                <input type="checkbox" class="is-active" [checked]="doctoractive.value" name="active" id="active"  formControlName="isActive"/>
+                            </div> 
+                            <div class="col-md-5 w-100" [hidden]="!clinicalflag">
+                                <label class="form-lable2" for="active">Has Clinical?</label>
+                                <input type="radio" class="is-active2" value="true" [checked]="clinical" id="active"  (click)="setdocclinical($event)"/>YES
+                                <input type="radio" class="is-active2" value="false" [checked]="!clinical" id="active"  (click)="setdocclinical($event)"/>NO
+                            </div> 
+                        </div>
+                        <div class="row p-3 justify-content-center">
+                            <div class="col-sm-3">
+                                <input *ngIf="modalflag" type="submit" value="submit" class="form-control" id="submit1" />
+                                <div *ngIf="!modalflag" class="fluid-container loading"><img src="assets/Spinner.svg" /></div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="alert alert-success alert-dismissible fade sucessmes" role="alert" [ngClass]="{'successshow':successflag}">
+                        <strong>success !</strong>
+                      </div>
+                    <div class="alert alert-danger alert-dismissible fade errormes" role="alert" [ngClass]="{'errorshow':errorflag}">
+                       {{mess}}
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+<!-- end add doctor  section -->
+
+
+
+

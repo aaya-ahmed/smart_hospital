@@ -1,0 +1,132 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LogInAndOutService } from 'src/app/services/log-in-and-out.service';
+@Component({
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['../styles/mainstyle.css']
+})
+export class AdminComponent implements OnInit {
+
+  constructor(private route:Router,private service:LogInAndOutService) { }
+  dashboardflag:boolean=true;
+  doctorflag:boolean=false;
+  nurseflag:boolean=false;
+  employeeflag:boolean=false;
+  departmentflag:boolean=false;
+  bedflag:boolean=false;
+  specializationflag:boolean=false;
+  schaduleflag:boolean=false;
+  reportflag:boolean=false;
+  user:any;
+  ngOnInit(): void {
+    if(localStorage.getItem("userRole")=="admin"){}
+    else{
+      this.route.navigate(['../home'])
+    }
+  }
+  toggledashboardflag(){
+    this.dashboardflag=true;
+    this.doctorflag=false;
+    this.nurseflag=false;
+    this.employeeflag=false;
+    this.departmentflag=false;
+    this.bedflag=false;
+    this.specializationflag=false;
+    this.schaduleflag=false;
+    this.reportflag=false;
+  }
+  toggledoctorflag(){
+    this.dashboardflag=false;
+    this.doctorflag=true;
+    this.nurseflag=false;
+    this.employeeflag=false;
+    this.departmentflag=false;
+    this.bedflag=false;
+    this.specializationflag=false;
+    this.schaduleflag=false;
+    this.reportflag=false;
+  }
+  togglenurseflag(){
+    this.dashboardflag=false;
+    this.doctorflag=false;
+    this.nurseflag=true;
+    this.employeeflag=false;
+    this.departmentflag=false;
+    this.bedflag=false;
+    this.specializationflag=false;
+    this.schaduleflag=false;
+    this.reportflag=false;
+  }
+  toggleemployeeflag(){
+    this.dashboardflag=false;
+    this.doctorflag=false;
+    this.nurseflag=false;
+    this.employeeflag=true;
+    this.departmentflag=false;
+    this.bedflag=false;
+    this.specializationflag=false;
+    this.schaduleflag=false;
+    this.reportflag=false;
+  }
+  toggledepartmentflag(){
+    this.dashboardflag=false;
+    this.doctorflag=false;
+    this.nurseflag=false;
+    this.employeeflag=false;
+    this.departmentflag=true;
+    this.bedflag=false;
+    this.specializationflag=false;
+    this.schaduleflag=false;
+    this.reportflag=false;
+  }
+  togglebedflag(){
+    this.dashboardflag=false;
+    this.doctorflag=false;
+    this.nurseflag=false;
+    this.employeeflag=false;
+    this.departmentflag=false;
+    this.bedflag=true;
+    this.specializationflag=false;
+    this.schaduleflag=false;
+    this.reportflag=false;
+  }
+  togglespecflag(){
+    this.dashboardflag=false;
+    this.doctorflag=false;
+    this.nurseflag=false;
+    this.employeeflag=false;
+    this.departmentflag=false;
+    this.bedflag=false;
+    this.specializationflag=true;
+    this.schaduleflag=false;
+    this.reportflag=false;
+  }
+  toggleschaduleflag(){
+    this.dashboardflag=false;
+    this.doctorflag=false;
+    this.nurseflag=false;
+    this.employeeflag=false;
+    this.departmentflag=false;
+    this.bedflag=false;
+    this.specializationflag=false;
+    this.schaduleflag=true;
+    this.reportflag=false;
+  }
+  togglereportflag(){
+    this.dashboardflag=false;
+    this.doctorflag=false;
+    this.nurseflag=false;
+    this.employeeflag=false;
+    this.departmentflag=false;
+    this.bedflag=false;
+    this.specializationflag=false;
+    this.schaduleflag=false;
+    this.reportflag=true;
+  }
+  logoutadmin(){
+    this.service.logout();
+    this.route.navigate(['/home'])
+  }
+
+}

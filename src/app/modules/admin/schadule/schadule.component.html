@@ -1,0 +1,29 @@
+<div *ngIf="flag;then page;else loading"></div>
+<ng-template #page>
+    <div class="fluid-container">
+        <div class="row">
+            <div class="show_btn" >
+                <button (click)="gotoshowschadule()" [ngClass]="{'active':!color_btn}">
+                    Show Schadule
+                </button>
+            </div>
+            <div class="add_btn">
+                <button (click)="gotoaddschadule()" [ngClass]="{'active':color_btn}">
+                    Add Schadule
+                </button>
+            </div>
+        </div>
+        <div class="main-page">
+            <div *ngIf="toggle;then addschadule; else showschadule "></div>
+        </div>
+    </div>
+    <ng-template #addschadule>
+        <app-setschadule [departments]="department"></app-setschadule>
+    </ng-template>
+    <ng-template #showschadule>
+        <app-showschadule [departments]="department"></app-showschadule>
+    </ng-template>
+</ng-template>
+<ng-template #loading>
+    <div class="fluid-container loading"><img src="assets/Spinner.svg" /></div>
+</ng-template>

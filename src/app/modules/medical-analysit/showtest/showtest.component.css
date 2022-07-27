@@ -1,0 +1,77 @@
+.container2,.container1{
+    width:60%;
+    display: none;
+    padding: 2rem 0;
+    margin: 1rem auto;
+    background-color: white;
+    justify-content: center;
+    border-radius: 1rem;
+}
+form{
+    width:95%;
+    margin: 0 auto;
+    padding: 2%;
+}
+.getpatient{
+    width: 60%;
+    margin: 1rem auto 0 auto;
+    background-color: white;
+    padding: 1rem;
+}
+.getdoctor{
+    width: 85%;
+    margin: 1rem auto 0 auto;
+    background-color: white;
+    padding: 1rem;
+}
+ input[type="checkbox"]{
+    position:absolute;
+    display: none;
+}
+
+
+span{
+    margin: 0 3px;
+}
+.patient-sec,.doctor-sec{
+    cursor: pointer;
+    font-size: 20px;
+    color: rgb(33 153 232);
+    font-weight: 600;
+}
+.table-responsive{
+    max-height: 80vh;
+    min-height: 80vh;
+}
+.table{
+    width:50%;
+    margin: 0 auto;
+}
+.pdf{
+    cursor: pointer;
+    padding: 8px;
+    width: 10px;
+}
+.btn{
+    background-color: yellowgreen;
+    color: white;
+    margin: 23px 0;
+}
+.invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+  }
+.show{
+    display: block;
+}
+@media (max-width:800px) {
+    .container1,.container2{
+        width: 90%;
+    }
+    .getpatient{
+        width: 90%;
+    }
+}

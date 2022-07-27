@@ -1,0 +1,62 @@
+.fluid-container{
+    width: 100%;
+    min-height: 93vh;
+}
+.fluid-container .container{
+    width:100%;
+
+}
+.container form{
+    justify-content: center;
+    padding: 1rem 0;
+}
+.btn{
+    width: 100px;
+    background-color: rgb(144, 194, 134);
+    color: white;
+    margin-top: 1.2rem;
+}
+.container1{
+    width: 90%;
+    margin: 1rem auto;
+    background-color: white;
+}
+.container1 .row{
+    padding:0.5rem 0;
+}
+.container1 .row .col-4 label{
+    font-size: 17px;
+    font-weight: 600;
+    padding: 0 0.5rem;
+}
+.image img{
+    width:100px;
+    height: 100px;
+}
+hr{
+    width: 80%;
+    margin: 0 auto;
+}
+.data{
+    margin-left: 10px;
+}
+.table-responsive table{
+    width: 50%;
+    margin: auto;
+}
+.table-responsive table tr td{
+   margin: 15px;
+   padding: 5px;
+}
+@media print{
+    .container{
+        display: none;
+    }
+    .print-btn{
+        display: none;
+    }
+}
+.print-btn{
+    background-color: rgb(104, 170, 91);
+    margin-right: 30px;
+}

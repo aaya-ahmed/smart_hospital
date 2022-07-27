@@ -1,0 +1,82 @@
+<div class="fluid-container">
+<header >
+  <div class="row">
+<div class="col-6">
+  <label class="toggle-label" for="toggle"><i class="toggle-span" class="fa-solid fa-bars "></i></label>  
+  <a [routerLink]="'../home'" style="cursor:pointer ;"><img src="./assets/hospitallogo.png"></a>
+  <h4><span class="heading-logo"> University Hospital</span></h4>
+</div>
+<div class="col-4">
+</div>
+</div>
+
+</header>
+
+<main>
+  <input type="checkbox" id="toggle"/>
+  <div class="navbar-side">
+    <nav>
+      <ul class="hr-nav">
+        <li>
+          <a id="len1"[routerLink]="'profile'" (click)="toggledashboardflag()" [ngClass]="{'hoverable': dashboardflag}">
+            <div class="icon"><img src="assets/home.png"/></div>
+            <div class="link"><span>profile</span></div>
+          </a>
+        </li>
+        <li>
+          <a id="len2" [routerLink]="'doctorcom'" (click)="toggledoctorflag()" [ngClass]="{'hoverable':  doctorflag }">
+            <div class="icon"><img src="assets/doctors.png"/></div>
+            <div class="link"><span>Doctors</span></div>
+          </a>
+        </li>
+        <li>
+          <a id="len3" [routerLink]="'nurseing'" (click)="togglenurseflag()" [ngClass]="{'hoverable':  nurseflag }">
+            <div class="icon"><img src="assets/nurses.png"/></div>
+            <div class="link"><span>Nurses</span></div>
+          </a>
+        </li>
+        <li>
+          <a id="len4"  [routerLink]="'employees'" (click)="toggleemployeeflag()" [ngClass]="{'hoverable':  employeeflag }">
+            <div class="icon"><img src="assets/employee.png"/></div>
+              <div class="link"><span>Receptionist</span></div>
+          </a>
+        </li>
+        <li>
+          <a id="len3" [routerLink]="'schadule'" (click)="toggleschaduleflag()" [ngClass]="{'hoverable':  schaduleflag}">
+            <div class="icon"><img src="assets/appoint icon.png"/></div>
+            <div class="link"><span>Schadule</span></div>
+          </a>
+        </li>
+        <li>
+          <a id="len1" [routerLink]="'departments'" (click)="toggledepartmentflag()" [ngClass]="{'hoverable':  departmentflag }">
+            <div class="icon"><img src="assets/department.png"/></div>
+              <div class="link"><span>Departments</span></div>
+          </a>
+        </li>
+        <li>
+          <a id="len4"  [routerLink]="'setbed'"  (click)="togglebedflag()" [ngClass]="{'hoverable':  bedflag }">
+            <div class="icon"><img src="assets/bed.png"/></div>
+            <div class="link"><span>Beds</span></div>
+          </a>
+        </li>
+        <!-- <li>
+          <a id="len4"  [routerLink]="'report'" (click)="togglereportflag()" [ngClass]="{'hoverable': reportflag}" >
+            <div class="icon"><i class="fa-solid fa-clipboard "></i></div>
+            <div class="link"><span>Report</span></div>
+          </a>
+        </li> -->
+        <li>
+          <a id="len4"  (click)="logoutadmin()"  > 
+            <div class="icon"><i class="fa-solid fa-arrow-right-from-bracket "></i></div>
+              <div class="link"><span>Log Out</span></div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+   </div>
+   
+  <div class="page-warpper" style="background-image:url('../assets/backgroound4.png');">
+<router-outlet></router-outlet>
+  </div>
+</main>
+</div>

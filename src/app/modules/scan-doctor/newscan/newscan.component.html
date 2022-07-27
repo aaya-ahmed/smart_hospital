@@ -1,0 +1,125 @@
+<div class="container">
+    <input type="checkbox" id="check" />
+    <div class="adding-label">
+        <div class="d-flex" (click)="togglemodalfunc()">
+            <label for="check"><i class="fa-solid fa-plus" ></i> Add Scan</label>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Scan Name</th>
+                    <th>Charge</th>
+                    <th>Option</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of scanlist|paginate: { itemsPerPage:9, currentPage: p ,totalItems:totallength};let j=index">
+                    <td>{{i.id}}</td>
+                    <td>{{i.scanName}}</td>
+                    <td>{{i.scanCharge}}</td>
+                    <td>
+                        <button (click)="setupdateinfo(i,j)"> <span class="fa-solid fa-pen-to-square " style="color:green " > </span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <pagination-controls style="margin:3rem 0;float: right;" (pageChange)="p = $event"></pagination-controls> 
+    <!-- <div *ngIf="toggle;then update_sec"></div> -->
+</div>
+<!-- <ng-template #update_sec>
+        <div class="container1">
+            <div class="updating-header">
+                <div class="close">
+                    <i (click)="close()"class="fa-solid fa-xmark fa-2x" style="color:red ;"></i>
+                </div>
+                <h3>Update scan</h3>
+            </div>
+            <form #updatescan="ngForm" (ngSubmit)="update(updatescan)">
+                <div class="row ">
+                    <div class="form-group col-sm-8">
+                        <label for="scan_Name">Name </label>
+                        <input [ngClass]="{'is-invalid':scan_Name.errors?.['required']&&form.submitted||scan_Name.touched&&scan_Name.invalid}"  type="text" class="form-control" name="scan_Name" id="scan_Name" required [(ngModel)]="temp.scanName" #scan_Name="ngModel" disabled/>
+                    </div>
+                    <div *ngIf="scan_Name.errors?.['required']&&form.submitted||scan_Name.touched&&scan_Name.invalid" class="invalid-feedback">
+                        Please enter scan Name
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="form-group col-sm-8">
+                        <label for="charge">Charge</label>
+                        <input [ngClass]="{'is-invalid':charge.errors?.['required']&&form.submitted||charge.touched&&charge.invalid}" type="text"  [(ngModel)]="temp.scanCharge"class="form-control " name="charge" id="charge" required ngModel #charge="ngModel"/>
+                        <div *ngIf="charge.errors?.['required']&&form.submitted||charge.touched&&charge.invalid" class="invalid-feedback">
+                            Please enter scan charge
+                        </div>
+                    </div>  
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 update_btn">
+                        <input type="submit" value="Update" />
+                    </div>
+                </div>
+            </form>
+        </div>
+</ng-template> -->
+
+
+
+
+
+
+<div class="hidden-adding" [ngClass]="{'toggle-addmodel':ModuleFlag}">
+<div class="modal fade"  id="exampleModalCenter"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">New Scan</h3>
+                <button type="button" (click)="togglemodalfunc()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                 <form #form="ngForm" (ngSubmit)="save(form)" class="newrayform">
+        <div class="row justify-content-around">
+            <div class="form-group col-sm-6 col-md-5">
+                <label for="scanname">
+                    Scan Name
+                  </label>
+                  <input type="text" id="scanname" name="scanname" class="form-control form-control1" 
+                  required #scanname="ngModel" [(ngModel)]="temp.scanName" [disabled]="updateflag"/>
+                  <div class="invalid-feedback">
+                    {{(scanname.errors?.['required']&&form.submitted)?"this is required":''}}
+                  </div>
+            </div>
+            <div class="form-group col-sm-6 col-md-5">
+                <label for="scancharge" >
+                    Scan Charge
+                  </label>
+                  <input type="number" id="scancharge" [(ngModel)]="temp.scanCharge" name="Charge" class="form-control form-control1" min="100" #Charge="ngModel" required ngModel />          
+                  <div class="invalid-feedback">
+                    {{(Charge.errors?.['required']&&form.submitted)?"this is required":''}}
+                  </div>
+                </div>
+        </div>
+            <div class="row ">
+            <div class="form-group col-sm-12">
+                <br>
+                <input [hidden]="updateflag" type="submit" id="add_btn" value="Add">
+                <input  [hidden]="!updateflag"  type="submit" id="add_btn" value="Update">
+            </div>
+        </div>
+    </form>
+                <div class="alert alert-success alert-dismissible fade" role="alert" [ngClass]="{'successshow':successflag}">
+                    <strong>success !</strong>
+                  </div>
+                <div class="alert alert-danger alert-dismissible fade errormes" role="alert" [ngClass]="{'errorshow':errorflag}">
+                    error!
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

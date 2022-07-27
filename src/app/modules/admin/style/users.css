@@ -1,0 +1,152 @@
+
+.fluid-container {
+    width: 97%;
+    margin: 0 auto;
+}
+
+.head {
+    border-bottom: 2px solid #0d0c5f;
+}
+
+.form-control {
+    border: 1px solid rgb(24, 24, 112);
+    width: 100%;
+}
+
+.searching {
+    width: 100%;
+    padding: 1rem 0.5rem;
+}
+
+.searching label {
+    width: 90%;
+    border: none;
+    text-decoration: none;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.searching a:active {
+    color: black;
+}
+
+.searching button {
+    padding: 0.5rem 2rem;
+}
+
+.serach {
+    visibility: hidden;
+    position: absolute;
+}
+
+div.searching-fields {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+input:checked~div.searching-fields {
+    max-height: fit-content;
+    padding: 1rem;
+    background-color: rgb(248 254 255 / 50%);
+    margin-top: 0.3rem;
+}
+
+
+.toggle-addmodel,.toggle-updatemodel{
+    display: block;
+}
+.addmodal .container,
+.updatemodal .container {
+    width: 70%;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid #bcc5d6;
+}
+
+.updatemodal .container {
+    width: 50%;
+}
+
+.addmodal .container h4,
+.updatemodal .container h4 {
+    text-align: center;
+    padding: 10px 0px;
+    color: #38568d;
+}
+
+#submit,
+#submitlist,
+#cancel,
+#cancellist {
+    background-color: #85bda8;
+    border: none;
+    color: white;
+    margin-top: 0.5rem;
+    margin-bottom: 2px;
+}
+
+.searching button {
+    color: white;
+}
+
+.btn {
+    color: white;
+    background-image: linear-gradient(to right, #3289be, #84a9f8, #99c1f5);
+    border: none;
+}
+
+@media only screen and (max-width: 800px) {
+    .modal .container {
+        width: 80%;
+        background-color: white;
+        border-radius: 10px;
+        border: 2px solid #bcc5d6;
+    }
+    .modal .container .row {
+        padding: 5px 0;
+        margin: 0;
+    }
+}
+.err-mes{
+    font-size: 12px;
+    color: red;
+    border-radius: 7px red;
+    border: solid red;
+}
+.validation{
+    display: none;
+}
+
+  .form-control{
+    border-color: rgb(106, 148, 43);  
+    margin: 0 auto; 
+  }
+  .form-control:focus{
+    border-color: rgb(94, 133, 37);
+    box-shadow: none;
+    border-top-style: hidden; 
+}
+.form-lable{
+    padding: 0.5rem 0;
+}
+
+.invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+  }
+  .is-invalid{
+    border: 1px solid #dc3545;
+  }
+  .is-active{
+    visibility: visible;
+    margin: 38px 0 0 -54px;
+}
+.submit1{
+    background-color: green;
+}

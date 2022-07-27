@@ -1,0 +1,72 @@
+<div class="fluid-container">
+  <header class="row">
+  <div class="col-6">
+    <label class="toggle-label" for="toggle"><i class="toggle-span" class="fa-solid fa-bars "></i></label>  
+    <img src="./assets/hospitallogo.png">
+    <h4><span class="heading-logo"> University Hospital</span></h4>
+  </div>
+  <div class="col-4">
+    </div>
+  </header>
+  <main>
+    <input type="checkbox" id="toggle"/>
+    <div class="navbar-side">
+      <nav>
+        <ul class="hr-nav">
+          <li>
+            <a id="len1"(click)="setprofileflag()" [routerLink]="'profile'" [ngClass]="{'hoverable': profileflag}">
+              <div class="icon"><img src="../assets/user.png"></div>
+              <div class="link"><span>Profile</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len1"(click)="setprescriptionflag()" [routerLink]="'prescriptions'" [ngClass]="{'hoverable':  prescriptionflag}">
+              <div class="icon"><img src="../assets/presc icon.png"></div>
+              <div class="link"><span>Prescriptions</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len1"(click)="settestflag()" [routerLink]="'tests'" [ngClass]="{'hoverable':  testflag}">
+              <div class="icon"><img src="../assets/test icon.png"></div>
+              <div class="link"><span>Tests</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len1"(click)="setscanflag()" [routerLink]="'scans'" [ngClass]="{'hoverable':  scanflag}">
+              <div class="icon"><img src="../assets/ray.png"></div>
+              <div class="link"><span>Scan</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len2"  [ngClass]="{'hoverable':inpatientflag}" (click)=" setinpatientflag()" [routerLink]="'indoor-records'">
+              <div class="icon"><img src="../assets/inpatient icon.png"/></div>
+              <div class="link"><span>Indoor Records</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len2"  [ngClass]="{'hoverable':appointflag}" (click)=" setappointflag()" [routerLink]="'make-appointment'">
+              <div class="icon"><img src="../assets/appoint icon.png"/></div>
+              <div class="link"><span>Make Appoinment</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len2"  [ngClass]="{'hoverable':appointflag}" (click)=" setappointflag()" [routerLink]="'ecg'">
+              <div class="icon"><img src="../assets/ecg.png"/></div>
+              <div class="link"><span>your heart state</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len4"  (click)="logout()"  > 
+              <div class="icon"><i class="fa-solid fa-arrow-right-from-bracket "></i></div>
+                <div class="link"><span>Log Out</span></div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+     </div>
+    <div class="page-warpper" style="background-image:url('../assets/backgroound4.png');">
+  <router-outlet></router-outlet>
+    </div>
+  </main>
+  </div>
+  

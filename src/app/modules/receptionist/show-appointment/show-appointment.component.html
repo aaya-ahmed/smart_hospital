@@ -1,0 +1,47 @@
+<div class="container">
+    <header>
+        <h3>Doctor's Appointments</h3>
+    </header>
+    <form class="row">
+        <div class="col-4 doctor-select">
+            <label>Doctor</label>
+            <select class="form-select" (change)="setdoctorid($event)">
+                <option></option>
+                <option *ngFor="let i of doctors" value="{{i.id}}">{{i.firstName}}{{i.lastName}}</option>
+            </select>
+        </div>
+        <div class="col-4  doctor-select">
+            <label>Today</label>
+            <input  class="form-control" disabled type="text" value="{{today}}"/>
+        </div>
+        <div class="col-4">
+            <button type="submit" (click)="getappointment()" class="submit_btn">Search</button>
+        </div>
+    </form>
+    <hr>
+    <div *ngIf="appointflag" class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Patient Name</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of appointment;let j =index">
+                        <td>{{j+1}}</td>
+                        <td>{{i.patientName}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.slotTime}}</td>
+                        <td>{{i.gender}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="!appointflag" class="noappoint-sec"><p>No Appointments Today</p></div>
+</div>

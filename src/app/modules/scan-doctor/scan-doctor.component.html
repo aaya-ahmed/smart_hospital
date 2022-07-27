@@ -1,0 +1,54 @@
+  <div class="fluid-container">
+    <header class="row  justify-content-between">
+    <div class="col-6">
+      <label class="toggle-label" for="toggle"><i class="toggle-span" class="fa-solid fa-bars "></i></label>  
+      <img src="./assets/hospitallogo.png">
+      <h4><span class="heading-logo"> University Hospital</span></h4>
+    </div>
+    <div class="col-4">
+    
+    </div>
+    </header>
+    <main>
+      <input type="checkbox" id="toggle"/>
+      <div class="navbar-side">
+        <nav>
+          <ul class="hr-nav">
+            <li>
+              <a id="len1"(click)="setprofileflag()" title="profile" [routerLink]="'profile'" [ngClass]="{'hoverable': profileflag}">
+                <div class="icon"><img src="../assets/user.png"></div>
+                <div class="link"><span>Profile</span></div>
+              </a>
+            </li>
+            <li>
+              <a id="len2" (click)="togglescanflag()" title="Add New Scan" [ngClass]="{'hoverable':scanflag}" [routerLink]="'newscan'">
+                <div class="icon"><img src="../assets/addscan.webp"></div>
+                <div class="link"><span>Add New Scan</span></div>
+              </a>
+            </li>
+            <li>
+              <a id="len2" (click)="togglepatientscanflag()" title="Add Patient Scan" [ngClass]="{'hoverable':patientscanflag}" (click)="gotoaddscan()" >
+                <div class="icon"><img src="../assets/ray.png"></div>
+                <div class="link"><span>Add Patient Scan</span></div>
+              </a>
+            </li>
+            <li>
+              <a id="len2" (click)="toggleshowflag()" title="show scan" [ngClass]="{'hoverable':showflag}" [routerLink]="'showscan'">
+                <div class="icon"><img src="assets/ray.png"/></div>
+                <div class="link"><span>Show Patient Scan</span></div>
+              </a>
+            </li>
+            <li>
+              <a id="len4"  (click)="logout()"  > 
+                <div class="icon"><i class="fa-solid fa-arrow-right-from-bracket "></i></div>
+                  <div class="link"><span>Log Out</span></div>
+              </a>
+            </li>
+          </ul>
+        </nav>
+       </div>
+      <div class="page-warpper" style="background-image:url('../assets/backgroound4.png') ;">
+    <router-outlet></router-outlet>
+      </div>
+    </main>
+    </div>

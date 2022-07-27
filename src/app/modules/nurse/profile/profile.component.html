@@ -1,0 +1,283 @@
+<div class="fluid-container">
+    <div class="sec-info">
+        <div class="photo">
+            <table>
+                <tr>
+                    <td class="col1"><img [src]="srcimage"></td>
+                </tr>
+                <tr>
+                    <td class="col2">{{nurse.firstName}}&nbsp;{{nurse.lastName}}</td>
+                </tr>
+                <tr>
+                    <td >*******
+                    <i class="fas fa-edit" title="change password" 
+                    style="color:green;padding:0.2rem 0 ;cursor: pointer;" (click)="openpassowordmodel()"></i></td>
+                </tr>
+                <tr>
+                    <td class="col3">
+                        <span class="col3-title">Age</span><span>{{nurse.age}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col4">
+                        <input type="file" id="actual-btn" hidden (change)="uploadfile($event)"/>
+                        <label for="actual-btn" id="actual-btn">Change Image</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="main-info">
+            <table>
+                <tr>
+                    <th>Information</th>
+                    <td class="info-col1"><i class="fas fa-edit" (click)="openmodel()"></i></td>
+                </tr>
+                <tr>
+                    <th>userName</th>
+                    <td>{{nurse.userName}}</td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td>{{nurse.departmentName}}</td>
+                </tr>
+
+                <tr>
+                    <th>Degree</th>
+                    <td>{{nurse.nurseDegree}}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{nurse.gender}}</td>
+                </tr>
+                <tr>
+                    <th>Blood Type</th>
+                    <td>{{nurse.bloodType}}</td>
+                </tr>
+                <tr>
+                    <th>phone Number</th>
+                    <td>{{nurse.phoneNumber}}</td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td>{{nurse.mail}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{nurse.address}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="main">
+        <div class="statistics">
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <img class="icon" src="../assets/inpatient icon.png">
+                    <h3>In patient</h3>
+                    <span>{{inpatientnumber}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="inpatient table-responsive" >
+            <div *ngIf="inpatientflag;then inpatienttable;else noinpatientimg"></div>
+        </div>
+    </div>
+</div>
+<ng-template #inpatienttable>
+        <table class="table">
+            <thead>
+                <tr class="inpatient-title"><td colspan="5">In Patient List</td></tr>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Room Number</th>
+                    <th>Bed Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of inpatient">
+                    <td>{{i.firstName}}&nbsp;{{i.lastName}}</td>
+                    <td>{{i.age}}</td>
+                    <td>{{i.gender}}</td>
+                    <td>{{i.room_Number}}</td>
+                    <td>{{i.bedNumber}}</td>
+                </tr>
+            </tbody>
+        </table>
+</ng-template>
+<ng-template #noinpatientimg>
+    <img class="noInpatientImg" src="../assets/noinpatient.png">
+    <p>No there In-Patient</p>
+</ng-template>
+<div class="modal fade" [ngClass]="{'show':updateflag}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Update Profile</h3>
+                <button type="button" (click)="close()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="nurseInfo"  (ngSubmit)="update()" class="upddate-form">
+                    <div class="row">
+                        <div class="col-5">
+                            <label class="form-lable" for="nursefname">First Name</label>
+                            <input class="form-control" type="text" name="fname" id="nursefname" formControlName="fname" 
+                            [ngClass]="{'is-invalid':((nurseFname.touched&& nurseFname.invalid)||(submitted&&nurseFname.hasError('required')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{((nurseFname.touched&& nurseFname.invalid)||(submitted&&nurseFname.hasError('required')))?"This field is reqired":''}}
+                                {{nurseFname.touched&&nurseFname.hasError('pattern')?"character @ # / * etc.. not allowed":''}}
+                                {{nurseFname.touched&&nurseFname.hasError('minlength')?"min length is 3":''}}
+                                {{nurseFname.touched&&nurseFname.hasError('maxlength')?"max length is 10":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="nurselname">Family Name</label>
+                            <input class="form-control" type="text" name="lname" id="nurselname" formControlName="lname" 
+                            [ngClass]="{'is-invalid':((nurseLname.touched&& nurseLname.invalid)||(submitted&&nurseLname.hasError('required')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{((nurseLname.touched&& nurseLname.invalid)||(submitted&&nurseLname.hasError('required')))?"This field is reqired":''}}
+                                {{nurseLname.touched&&nurseLname.hasError('pattern')?"character @ # / * etc.. not allowed":''}}
+                                {{(nurseLname.touched&&nurseLname.hasError('minlength'))||(submitted&&nurseLname.hasError('minlength'))?"min length is 14":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="nurseuname">User Name</label>
+                            <input class="form-control" value="{{nurse.userName}}" type="text" name="nurseuname" id="nurseuname" formControlName="username" 
+                            [ngClass]="{'is-invalid':((nurseUserName.touched&& nurseUserName.invalid)||(submitted&&nurseUserName.hasError('required')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{((nurseUserName.touched&& nurseUserName.invalid)||(submitted&&nurseUserName.hasError('required')))?"This field is reqired":''}}
+                                {{nurseUserName.touched&&nurseUserName.hasError('pattern')?"character @ # / * etc.. not allowed":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="nid">National id</label>
+                            <input class="form-control"  type="number"  name="nid" id="nid" formControlName="nid" 
+                            [ngClass]="{'is-invalid':((nursenid.touched&& nursenid.invalid)||(submitted&&nursenid.hasError('required')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{((nursenid.touched&& nursenid.invalid)||(submitted&&nursenid.hasError('required')))?"This field is reqired":''}}
+                                {{nursenid.touched&&nursenid.hasError('min')?"national id must be 14 number":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="age">Age</label>
+                            <input class="form-control"  type="number" min="20" name="Date-of-Birth" id="Date-of-Birth" formControlName="age" 
+                            [ngClass]="{'is-invalid':((nurseAge.touched&& nurseAge.invalid)||(submitted&&nurseAge.hasError('required')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{((nurseAge.touched&& nurseAge.invalid)||(submitted&&nurseAge.hasError('required')))?"This field is reqired":''}}
+                                {{nurseAge.touched&&nurseAge.hasError('min')?"age must be between 20 ad 90 year":''}}
+                                {{nurseAge.touched&&nurseAge.hasError('max')?"age must be between 20 ad 90 year":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label for="phone">phone Number</label>
+                            <input class="form-control" type="tel" name="phone" id="phone" formControlName="phonenumber" 
+                    [ngClass]="{'is-invalid':((nursePhone.touched&& nursePhone.invalid)||(submitted&&nursePhone.hasError('required')))}"
+                    />
+                    <div class="invalid-feedback">
+                        {{((nursePhone.touched&& nursePhone.invalid)||(submitted&&nursePhone.hasError('required')))?"This field is reqired":''}}
+                        {{nursePhone.touched&&nursePhone.hasError('pattern')?"must 11 number and start with 010,011,012 or 015":''}}
+                    </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="Email">Email</label>
+                            <input class="form-control" type="email" name="Email" id="Email" formControlName="mail" 
+                            [ngClass]="{'is-invalid':nurseMail.touched&& nurseMail.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                {{nurseMail.touched&&nurseMail.hasError('email')?"must in email format ex xx@xxxx.eg or com":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                                <label class="form-lable" for="gender">gender</label>
+                    <select id="gender" class="form-control" formControlName="gender"
+                    [ngClass]="{'is-invalid':((nurseGender.touched&& nurseGender.invalid)||(submitted&&nurseGender.hasError('required')))}">
+                        <option vlaue="female">female</option>
+                        <option value="male">male</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        {{((nurseGender.touched&& nurseGender.invalid)||(submitted&&nurseGender.hasError('required')))?"This field is reqired":''}}
+                        </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="bloodtype">bloodtype</label>
+                            <select id="bloodtype" class="form-control" formControlName="bloodtype"
+                            [ngClass]="{'is-invalid':((nurseBloodType.touched&& nurseBloodType.invalid)||(submitted&&nurseBloodType.hasError('required')))}">
+                                <option vlaue="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option vlaue="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option vlaue="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option vlaue="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                {{((nurseBloodType.touched&& nurseBloodType.invalid)||(submitted&&nurseBloodType.hasError('required')))?"This field is reqired":''}}
+                                </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="Address">Address</label>
+                            <input class="form-control" type="text" name="Address" id="Address" formControlName="address" 
+                            />
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <button class="update_btn"  type="submit">Update</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissible fade sucessmes" role="alert" [ngClass]="{'successshow':successflag}">
+            <strong>success !</strong>
+          </div>
+        <div class="alert alert-danger alert-dismissible fade errormes" role="alert" [ngClass]="{'errorshow':errorflag}">
+            error!
+          </div>
+    </div>
+<div class="modal fade" [ngClass]="{'show':passwordflag}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Update Password</h3>
+                    <button type="button" (click)="openpassowordmodel()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form  [formGroup]="userpassword" (ngSubmit)="updatepassword()" class="upddate-form">
+                        <div class="row justify-content-center">
+                            <div class="col-5">
+                                <label class="form-lable" for="fname">New Password</label>
+                                <input class="form-control"  type="text" name="password" id="password" formControlName="password" 
+                                [ngClass]="{'is-invalid':((nursepassword.touched)&& nursepassword.invalid)||(submitted&&nursepassword.hasError('required'))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((nursepassword.touched)&& nursepassword.invalid)||(submitted&&nursepassword.hasError('required'))?"This field is reqired":''}}
+                                    {{nursepassword.touched&&nursepassword.hasError('minlength')?"min length 8":''}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row1">
+                            <button class="update_btn"  type="submit">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissible fade sucessmes" role="alert" [ngClass]="{'successshow':successflag}">
+            <strong>success !</strong>
+          </div>
+        <div class="alert alert-danger alert-dismissible fade errormes" role="alert" [ngClass]="{'errorshow':errorflag}">
+            error!
+          </div>
+</div>
+

@@ -1,0 +1,55 @@
+<div class="fluid-container">
+  <header class="row  justify-content-between">
+  <div class="col-6">
+    <label class="toggle-label" for="toggle"><i class="toggle-span" class="fa-solid fa-bars "></i></label>  
+    <img src="./assets/hospitallogo.png">
+    <h4><span class="heading-logo"> University Hospital</span></h4>
+  </div>
+  <div class="col-4">
+  
+  </div>
+  </header>
+  <main>
+    <input type="checkbox" id="toggle"/>
+    <div class="navbar-side">
+      <nav>
+        <ul class="hr-nav">
+          <li>
+            <a id="len1"(click)="setprofileflag()" title="Profile" [routerLink]="'profile'" [ngClass]="{'hoverable': profileflag}">
+              <div class="icon"><img src="../assets/user.png"></div>
+              <div class="link"><span>Profile</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len2" (click)="togglelabflag()" title="Add New Test" [ngClass]="{'hoverable':labflag}" [routerLink]="'newtest'">
+              <div class="icon"><img src="../assets/add new test.png"/></div>
+              <div class="link"><span>Add New Test</span></div>
+            </a>
+          </li>
+          
+          <li>
+            <a id="len2" (click)="togglepatientlabflag()" title="Add Patient Test" [ngClass]="{'hoverable':patientlabflag}" (click)="gotoaddlab()" >
+              <div class="icon"><img src="../assets/add test.png"/></div>
+              <div class="link"><span>Add Patient Test</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len2" (click)="toggleshowflag()" title="Show Test Result" [ngClass]="{'hoverable':showflag}" [routerLink]="'showtest'">
+              <div class="icon"><img src="../assets/test result.jpg"/></div>
+              <div class="link"><span>Show Test Result</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len4"  (click)="logout()"  > 
+              <div class="icon"><i class="fa-solid fa-arrow-right-from-bracket "></i></div>
+                <div class="link"><span>Log Out</span></div>
+            </a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+     <div class="page-warpper" style="background-image:url('../assets/backgroound4.png') ;">
+   <router-outlet></router-outlet>
+     </div>
+   </main>
+   </div>

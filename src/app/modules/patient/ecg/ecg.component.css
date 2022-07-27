@@ -1,0 +1,18 @@
+.fluid-container{
+    min-height: 100vh;
+}
+.table-responsive{
+    width: 700px;
+    height:300px;
+    overflow: auto;
+    margin: 2rem auto;
+    background-color: white;
+
+}
+table thead{
+    background-color: #cfd0db;
+    text-align: center;
+}
+table thead tr td,table tbody tr td{
+    border:1px solid black
+}

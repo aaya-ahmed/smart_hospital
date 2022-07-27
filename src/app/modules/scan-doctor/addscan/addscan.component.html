@@ -1,0 +1,67 @@
+<div class="container-fluid" id="container" #container>
+    <form #form="ngForm" (ngSubmit)="print(form)">
+        <div class="sec-data row" id="sec-data">
+            <table>
+                <tr>
+                    <th>Doctor Name</th>
+                    <td>
+                        <input type="text" class="form-control" ngModel #dname="ngModel"  name="dname" id="dname" required />
+                        <div class="invalid-feedback" >
+                            {{(dname.errors?.['required']&&form.submitted)?"this is required":''}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Patient Name</th>
+                    <td>
+                        <input class="form-control" type="text"  name="pname" ngModel #pname="ngModel" id="pname" required />
+                        <div class="invalid-feedback">
+                            {{(pname.errors?.['required']&&form.submitted)?"this is required":''}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>
+                        <input type="text" class="form-control" id="date" name="date" disable="True"  [value]="dateray|date:'yyyy-MM-dd'" disabled />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Scan Name</th>
+                    <td>
+                        <input type="text" class="form-control" name="scan"  #scan="ngModel" ngModel required/>
+                        <div class="invalid-feedback">
+                            {{(scan.errors?.['required']&&form.submitted)?"this is required":''}}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+         <div class="sec-image row" id="sec-image" *ngFor="let image of imagelist ; let j=index">
+            <button type="button" class="xmark_btn" (click)="cancelimage(j)"><i class="fa-solid fa-xmark"></i></button>
+            <img  [src]="image" alt="" id="rayimage">
+        </div> 
+        <div  class="invalid-feedback">
+            {{!imageflag&&form.submitted?"please set image scan":''}}
+        </div>
+        <div class="sec-image row">
+            <label id="upload" for="file">Upload Ray</label>
+            <input type="file" id="file" name="images" accept="image/*" (change)="uploadfile($event)" multiple required/>
+        
+        </div>
+        <div class="sec-data row">
+            <label for="report"><strong>Report</strong></label>
+            <textarea cols="20" rows="10" id="report" name="report" #report="ngModel" ngModel required></textarea>
+            <div class="invalid-feedback">
+                {{(report.errors?.['required']&&form.submitted)?"this is required":''}}
+            </div>
+        </div>
+        <div class="sec-submit row ">
+            <div class="col-3 d-flex ">
+                <button type="submit"> Print </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+

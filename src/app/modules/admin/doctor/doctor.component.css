@@ -1,0 +1,76 @@
+
+.fluid-container{
+    width: 100%;
+    height: 100vh;
+}
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+th {
+    position: sticky;
+}
+
+table {
+    background-color: white;
+}
+
+table tbody tr td button {
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    margin: 0 auto;
+}
+.hidden-adding{
+    display: none;
+}
+.toggle-addmodel{
+    display: block;
+    position: fixed;
+    z-index: 9;
+    width: 100%;
+    height: -webkit-fill-available;
+    top: 0;
+    left: 0;
+  }
+.loading{
+    width: 100%;
+    height:100%;
+    background-color: rgba(99, 106, 112, 0.596);
+
+}
+.col-sm-3{
+    width:15vw;
+}
+.close{
+    border: none;
+    background-color: transparent;
+    float: right;
+    font-size: 20px;
+}
+.alert-dismissible{
+    position: fixed;
+    width: 70%;
+    margin: 0 auto;
+    top: 20rem;
+    left: 15%;
+    display: none;
+}
+.successmes,.errormes{
+    display: none;
+    position: absolute;
+}
+.successshow,.errorshow{
+    display: block;
+}
+.form-lable2{
+    width: 155px;
+    text-align: right;
+    justify-content: center;
+    font-size: 19px;
+    color: red;
+}
+.is-active2{
+    margin: 23px 0 0 25px;
+}

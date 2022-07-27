@@ -1,0 +1,72 @@
+<div class="fluid-container">
+            <div class="department-list">
+                <label>Department</label>
+                <select class="form-select" (change)="getschadules($event)">
+                    <option value="-1"></option>
+                    <option *ngFor="let i of departments" value="{{i.id}}">{{i.department_Name}}</option>
+                </select>
+            </div>
+<div class="table-responsive" *ngIf="tableflag">
+  <table class="table table-striped schadule-table">
+      <thead>
+          <tr>
+              <th>Id</th>
+              <th>Doctor Name</th>
+              <th>Schadule</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let i of schadules|paginate: { itemsPerPage: 10, currentPage: p ,totalItems:totallength};let y=index">
+              <td class="col4">{{y+1}}</td>
+              <td class="col4">{{i.doctorName}}</td>
+              <td>
+                  <table class=" schadule2-tables">
+                      <tr>
+                        <th>day of work</th>
+                        <th>start time</th>
+                        <th>end time</th>
+                        <th>time per patient</th>
+                        <th>option</th>
+                      </tr>
+                      <tr *ngFor="let j of i.scheduleObjects;let m=index">
+                          <td>
+                             <select [disabled]=true value="{{j.dayOfWork}}" #day>
+                                  <option value="0">sunday</option>
+                                  <option value="1">monday</option>
+                                  <option value="2">tuesday</option>
+                                  <option value="3">wednesday</option>
+                                  <option value="4">thursday</option>
+                                  <option value="5">friday</option>
+                                  <option value="6">saturday</option>
+                          </select>
+                          </td>
+                          <td>
+                              <p class="col8">{{j.startTime}}</p></td>
+                          <td>
+                              <p class="col8">{{j.endTime}}</p></td>
+                          <td>
+                             <p class="col8">{{j.timePerPatient}}</p> </td>
+                            <td><button (click)="delet(y,m)"><i class="fa-solid fa-trash" style="color:red"></i></button></td>
+                      </tr>
+                      </table>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div> 
+<div class="alert alert-warning mess" role="alert" [ngClass]="{'show':show}">
+    <p> you want delete this schadule</p>
+    <div class="row justify-content-center">
+        <div class="col-1">
+            <button (click)="deleteschadle()" style="color:red">yes</button>
+        </div>
+        <div class="col-1">
+            <button (click)="close()">no</button>
+        </div>
+    </div>
+    </div>
+<pagination-controls style="margin:3rem 0;float: right;"(pageChange)="p = $event"></pagination-controls>
+
+<div *ngIf="!tableflag"  style="width:50%;text-align: center; margin:0 auto;color:red">No Schadule</div>
+
+</div>

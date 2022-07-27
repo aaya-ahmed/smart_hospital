@@ -1,0 +1,36 @@
+<div class="fluid-container">
+  <div class="img" style="background-image:url('assets/wave.png') ;">
+    <img class="login" src="assets/login.png">
+  </div>
+  <div class="login-content">
+    <form [formGroup]="login" (ngSubmit)="submit()">
+      <img src="assets/Jcf.svg">
+      <h2 class="title">Welcome</h2>
+      <div  class="input-div one" [ngClass]="{'invalid':UserNamev?.touched&&UserNamev?.invalid||errorflag}">
+        <div class="i">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="div">
+          <input type="text"  class="input" id="UserName" formControlName="UserName" />
+          <div *ngIf="UserNamev?.touched&&UserNamev?.invalid" class="invalid-name">please enter your UserName</div>
+          </div>
+      </div>
+      <div class="input-div pass" [ngClass]="{'invalid':Passwordv?.touched&&Passwordv?.invalid||errorflag}">
+        <div class="i">
+          <i class="fas fa-lock"></i>
+        </div>
+        <div class="div">
+          <input  type="password" class="input" id="pass" formControlName="Password" />
+          <div *ngIf="Passwordv?.touched&&Passwordv?.invalid" class="invalid-pass">please enter your password</div>
+        </div>
+      </div>
+      <input [disabled]="loginflag" type="submit" class="btn" value="Login">
+      <div *ngIf="loginflag">
+        <img src="assets/Spinner.svg" />
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="errorflag" class="mess">
+  {{errormes}}
+</div>

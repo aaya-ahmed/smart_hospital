@@ -1,0 +1,61 @@
+<div class="fluid-container">
+  <header class="row">
+  <div class="col-6">
+    <label class="toggle-label" for="toggle"><i class="toggle-span" class="fa-solid fa-bars "></i></label>  
+    <img src="./assets/hospitallogo.png">
+    <h4><span class="heading-logo"> University Hospital</span></h4>
+  </div>
+  <div class="col-4">
+  
+  </div>
+  </header>
+  <main>
+    <input type="checkbox" id="toggle"/>
+    <div class="navbar-side">
+      <nav>
+        <ul class="hr-nav">
+          <li>
+            <a id="len1"[routerLink]="'profile'" (click)="toggledashboardflag()" [ngClass]="{'hoverable': dashboardflag}">
+              <div class="icon"><img src="../assets/user.png"></div>
+              <div class="link"><span>profile</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len1"[routerLink]="'patient'" (click)="togglepatientflag()" [ngClass]="{'hoverable': patientflag}">
+              <div class="icon"><img src="../assets/adduser.png"></div>
+              <div class="link"><span>Add Patient</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len2" [routerLink]="'patient-appointment'" (click)="toggleshpatientappointflag()" [ngClass]="{'hoverable':shpatientappointmentflag}">
+               <div class="icon"><img src="../assets/appoint icon.png"/></div>
+              <div class="link"><span>Patient appointment</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len2" [routerLink]="'make-appointment'" (click)="toggleappointflag()" [ngClass]="{'hoverable':appointmentflag}">
+               <div class="icon"><img src="../assets/appoint icon.png"/></div>
+              <div class="link"><span>Make appointment</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len2" [routerLink]="'bill'" (click)="togglebillflag()" [ngClass]="{'hoverable':billflag}">
+              <div class="icon"><img src="../assets/bill.png"/></div>
+              <div class="link"><span>Bill</span></div>
+            </a>
+          </li>
+          <li>
+            <a id="len4"  (click)="logout()"  > 
+              <div class="icon"><i class="fa-solid fa-arrow-right-from-bracket "></i></div>
+                <div class="link"><span>Log Out</span></div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+     </div>
+     
+    <div class="page-warpper"  style="background-image:url('../assets/backgroound4.png') ;" >
+  <router-outlet></router-outlet>
+    </div>
+  </main>
+  </div>

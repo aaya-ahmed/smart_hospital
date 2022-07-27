@@ -1,0 +1,213 @@
+<div class="fluid-container">
+    <div class="sec-info">
+        <div class="photo">
+            <table>
+                <tr>
+                    <td class="col1"><img [src]="imagesrc"/></td>
+                </tr>
+                <tr>
+                    <td class="col2">{{admin.firstName}}&nbsp;{{admin.lastName}}</td>
+                </tr>
+                <tr>
+                    <td class="col3">
+                        <span class="col3-title">Age</span><span>{{admin.age}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col4">
+                        <input type="file" id="actual-btn" hidden (change)="uploadfile($event)"/>
+                        <label for="actual-btn" id="actual-btn">Change Image</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="main-info">
+            <table>
+                <tr>
+                    <th>Information</th>
+                    <td class="info-col1"><i class="fas fa-edit" (click)="openmodel()"></i></td>
+                </tr>
+                <tr>
+                    <th>userName</th>
+                    <td>{{admin.userName}}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{admin.gender}}</td>
+                </tr>
+                <tr>
+                    <th>Blood Type</th>
+                    <td>{{admin.bloodType}}</td>
+                </tr>
+                <tr>
+                    <th>phone Number</th>
+                    <td>{{admin.phoneNumber}}</td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td>{{admin.mail}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{admin.address}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="main">
+        <div class="statistics">
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <img class="icon" src="../assets/appoint icon.png">
+                    <h3>Appointment's Today</h3>
+                    <span>{{employeesnumber.todayappointment}}</span>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <img class="icon" src="../assets/appoint icon.png">
+                    <h3>Total Appointments</h3>
+                    <span>{{employeesnumber.allappointment}}</span>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <img class="icon" src="../assets/inpatient icon.png">
+                    <h3>In patient</h3>
+                    <span>{{employeesnumber.inpatient}}</span>
+                </div>
+                <div  class="mt-2 col-md-3 col-sm-12">
+                    <img class="icon" src="../assets/inpatient icon.png">
+                    <h3>Out patient</h3>
+                    <span>{{employeesnumber.outpatient}}</span>
+                </div>
+                <div  class="mt-2 col-md-3 col-sm-12">
+                    <img class="icon" src="../assets/doctors.png">
+                    <h3>doctors</h3>
+                    <span>{{employeesnumber.doctors}}</span>
+                </div>
+                <div  class="mt-2 col-md-3 col-sm-12">
+                    <img class="icon" src="../assets/nurses.png">
+                    <h3>Nurses</h3>
+                    <span>{{employeesnumber.nurses}}</span>
+                </div>
+                <div  class="mt-2 col-md-3 col-sm-12">
+                    <img class="icon" src="../assets/employee.png">
+                    <h3>Receptionist</h3>
+                    <span>{{employeesnumber.receptionist}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" [ngClass]="{'show':updateflag}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Update Profile</h3>
+                <button type="button" (click)="close()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="AdminInfo" (ngSubmit)="update()" class="upddate-form">
+                    <div class="row">
+                        <div class="col-5">
+                            <label class="form-lable" for="adminfname">First Name</label>
+                            <input class="form-control"  type="text" name="adminfname" id="adminfname" formControlName="fname" 
+                            [ngClass]="{'is-invalid':((adminFirstName.touched&& adminFirstName.invalid)||(submitted&&adminFirstName.hasError('required'))||(submitted&&adminFirstName.hasError('min'))||(submitted&&adminFirstName.hasError('max')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{adminFirstName.touched&&adminFirstName.hasError('required')?"This field is reqired":''}}
+                                {{adminFirstName.touched&&adminFirstName.hasError('min')?"first name must be greater than 3":''}}
+                                {{adminFirstName.touched&&adminFirstName.hasError('max')?"first name must be less than 10":''}}
+                            </div>
+                            </div>
+                            <div class="col-5">
+                                <label class="form-lable" for="adminlname">Last Name</label>
+                                <input class="form-control"  type="text" name="adminlname" id="adminlname" formControlName="lname" 
+                                [ngClass]="{'is-invalid':((adminLastName.touched&& adminLastName.invalid)||(submitted&&adminLastName.hasError('required'))||(submitted&&adminLastName.hasError('min'))||(submitted&&adminLastName.hasError('max')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{adminLastName.touched&&adminLastName.hasError('required')?"This field is reqired":''}}
+                                {{adminLastName.touched&&adminLastName.hasError('min')?"last name must greater than 14 char":''}}
+                                {{adminLastName.touched&&adminLastName.hasError('max')?"last name must less than 25 char":''}}
+                            </div>
+                                </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="age">Age</label>
+                            <input class="form-control"  type="number" min="20" name="Date-of-Birth" id="Date-of-Birth" formControlName="age" 
+                            [ngClass]="{'is-invalid':((adminAge.touched&& adminAge.invalid)||(submitted&&adminAge.hasError('required'))||(submitted&&adminAge.hasError('min'))||(submitted&&adminAge.hasError('max')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{adminAge.touched&&adminAge.hasError('required')?"This field is reqired":''}}
+                                {{adminAge.touched&&adminAge.hasError('min')?"age must be between 20 ad 90 year":''}}
+                                {{adminAge.touched&&adminAge.hasError('max')?"age must be between 20 ad 90 year":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="national id">Natinal Id</label>
+                            <input class="form-control" type="number" name="nid" id="national id" (change)="validationntionalid($event)" formControlName="nid" 
+                            [ngClass]="{'is-invalid':((adminNid.touched&& adminNid.invalid)||(submitted&&adminNid.hasError('required'))||(submitted&&adminNid.hasError('pattern'))||nationalidflag)}"
+                            />
+                            <div class="invalid-feedback">
+                                {{((adminNid.touched&& adminNid.invalid)||(submitted&&adminNid.hasError('required')))?"This field is reqired":''}}
+                                {{((adminNid.touched&& adminNid.invalid)||(submitted&&adminNid.hasError('pattern'))||nationalidflag)?"invalid national id":''}}
+                            </div>
+                            </div>
+                        <div class="col-5">
+                            <label for="phone">phone Number</label>
+                            <input class="form-control" type="tel" name="phone" id="phone" formControlName="phonenumber" 
+                    [ngClass]="{'is-invalid':((adminPhone.touched&& adminPhone.invalid)||(submitted&&adminPhone.hasError('required'))||(submitted&&adminPhone.hasError('pattern')))}"
+                    />
+                    <div class="invalid-feedback">
+                        {{((adminPhone.touched&& adminPhone.invalid)||(submitted&&adminPhone.hasError('required')))?"This field is reqired":''}}
+                        {{(adminPhone.touched&& adminPhone.invalid)||(submitted&&adminPhone.hasError('pattern'))?"invalid phone number":''}}
+                    </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="Email">Email</label>
+                            <input class="form-control" type="email" name="Email" id="Email" formControlName="mail" 
+                            />
+                            <div class="invalid-feedback">
+                                {{((adminMail.touched&&adminMail.hasError('email'))||(submitted&&adminMail.hasError('email')))?"invalid email format":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="address">Address</label>
+                            <input class="form-control" type="address" name="address" id="address" formControlName="address" 
+                            />
+                        </div>
+                        <div class="col-5">
+                                <label class="form-lable" for="gender">gender</label>
+                    <select id="gender" class="form-control" formControlName="gender"
+                    [ngClass]="{'is-invalid':((adminGender.touched&& adminGender.invalid)||(submitted&&adminGender.hasError('required')))}">
+                        <option vlaue="female">female</option>
+                        <option value="male">male</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        {{((adminGender.touched&& adminGender.invalid)||(submitted&&adminGender.hasError('required')))?"This field is reqired":''}}
+                        </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="bloodtype">bloodtype</label>
+                            <select id="bloodtype" class="form-control" formControlName="bloodtype"
+                            [ngClass]="{'is-invalid':((adminBloodType.touched&& adminBloodType.invalid)||(submitted&&adminBloodType.hasError('required')))}">
+                                <option vlaue="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option vlaue="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option vlaue="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option vlaue="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                {{((adminBloodType.touched&& adminBloodType.invalid)||(submitted&&adminBloodType.hasError('required')))?"This field is reqired":''}}
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <button class="update_btn"  type="submit">Update</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

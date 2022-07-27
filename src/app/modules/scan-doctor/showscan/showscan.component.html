@@ -1,0 +1,72 @@
+<div class="container" >
+    <div class="search row">
+        <div class="col-12">
+            <label for="patient-sec" (click)="setsearch(true)" class="patient-sec"><span class="fa fa-search" aria-hidden="true"></span>Search For Patient</label>
+            <div class="patientsearch" [ngClass]="{'show':searchflag}">
+                <form #searchform="ngForm" (ngSubmit)="search(searchform)">
+                    <div class="row justify-content-around">
+                        <div class="col-sm-3">
+                            <label>patient Name</label>
+                            <select class="form-select" ngModel #idpatient="ngModel" name="id" required>
+                                <option *ngFor="let i of patientlist;let j=index" value="{{i.id}}">{{i.firstName}}&nbsp;{{i.lastName}}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                {{(idpatient.errors?.['required']&&searchform.submitted)?"please select patient":''}}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Date</label>
+                            <input type="Date" class="form-control" ngModel #date="ngModel" name="date" />
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn">search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="doctor-sec" (click)="setsearch(false)" class="doctor-sec"><span class="fa fa-search" aria-hidden="true"></span>Search For Doctor</label>
+            <div class="docsearch" [ngClass]="{'show':!searchflag}">
+                <form #searchdocform="ngForm" (ngSubmit)="searchbydoctor(searchdocform)">
+                    <div class="row justify-content-around">
+                        <div class="col-sm-3">
+                            <label>Doctor Name</label>
+                            <select class="form-select" ngModel #iddoctor="ngModel" name="iddoctor"  required
+                             [ngClass]="{'is-invalid':iddoctor.errors?.['required']&&searchdocform?.['submitted']}">
+                                <option *ngFor="let i of Doctorlist;let j=index" value="{{i.id}}">{{i.firstName}}&nbsp;{{i.lastName}}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                {{(iddoctor.errors?.['required']&&searchdocform.submitted)?"this is required":''}}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Date</label>
+                            <input type="Date" class="form-control"  name="date" ngModel #date="ngModel" />
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn">search</button>
+                        </div>
+                    </div>
+                </form>
+            
+            </div>
+        </div>
+        <div *ngIf="scanflag" class="col-12 table-responsive">
+            <table class="table">
+                <thead>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>option</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of listscan|paginate: { itemsPerPage: 5, currentPage: p ,totalItems:totallength};let j=index">
+                        <td>{{i.scanName}}</td>
+                        <td>{{i.scanDate |date: 'longDate'}}</td>
+                        <td><button (click)="show(i)">Show</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="fluid-container">
+    <div  class="inner-container">
+        <div class="prep-row" >
+            <div class="row justify-content-md-center ">
+                <button class="btn" (click)="set_show_all_scan_flag()" type="button" data-toggle="collapse" data-target="#show-prep">
+                    <label class="form-lable" for="shoose-prep"><i class="fa-solid fa-flask mx-2"></i>Your Scans  </label>
+                </button>
+            </div>
+            <div class="collapse" id="show-prep" [ngClass]="{'show': showAllScanflag}">
+                <div class="card w-1000 ">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class='pdf'>Pdf</th>
+                                    <th>Scan Name</th>
+                                    <th>Doctor Name</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let i of scanList;let j=index">
+                                    <td class="pdf" (click)="openpdf(i.patientScanId)"><img src="assets/pdficon.png"/></td>
+                                    <td>{{i.scanName}}</td>
+                                    <td>{{i.doctorName}}</td>
+                                    <td>
+                                        {{i.scanDate |date: 'longDate'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>          
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>

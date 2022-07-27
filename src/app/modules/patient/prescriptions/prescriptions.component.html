@@ -1,0 +1,36 @@
+ <div class="fluid-container">
+    <div class="inner-container">
+        <div class="prep-row" >
+            <div class="row justify-content-md-center ">
+                <button class="btn" (click)="set_show_all_prep_flag()" type="button" data-toggle="collapse" data-target="#show-prep">
+                    <label class="form-lable" for="shoose-prep"><i class="fa-solid fa-prescription mx-2"></i>Your Prescriptions  </label>
+                </button>
+            </div>
+            <div class="collapse" id="show-prep" [ngClass]="{'show': showAllPrepflag}">
+                <div class="card w-1000 ">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class='pdf'>Prescription</th>
+                                    <th>Clinic Name</th>
+                                    <th>Doctor Name</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let i of allPatientPrescriptionsList;let j=index">
+                                    <td class="pdf" (click)="show_all_patient_prescriptions_in_pdf(i.prescription.prescriptionId)"><img src="assets/pdficon.png"/></td>
+                                    <td>{{i.department}}</td>
+                                    <td>{{i.doctorFullName}}</td>
+                                    <td>
+                                        {{i.prescription.prescription_Date |date: 'longDate'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>          
+                </div>
+            </div>
+            </div>
+        </div>

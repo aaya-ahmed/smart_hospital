@@ -1,0 +1,217 @@
+<div class="fluid-container">
+    <div class="sec-info">
+        <div class="photo">
+            <table>
+                <tr>
+                    <td class="col1"><img [src]="imagesrc"/></td>
+                </tr>
+                <tr>
+                    <td class="col2">{{receptionist.firstName}}&nbsp;{{receptionist.lastName}}</td>
+                </tr>
+                <tr>
+                    <td >*******
+                    <i class="fas fa-edit" title="change password" 
+                    style="color:green;padding:0.2rem 0 ;cursor: pointer;" (click)="openpassowordmodel()"></i></td>
+                </tr>
+                <tr>
+                    <td class="col3">
+                        <span class="col3-title">Age</span><span>{{receptionist.age}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col4">
+                        <input type="file" id="actual-btn" hidden (change)="uploadfile($event)"/>
+                        <label for="actual-btn" id="actual-btn">Change Image</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="main-info">
+            <table>
+                <tr>
+                    <th>Information</th>
+                    <td class="info-col1"><i class="fas fa-edit" (click)="openmodel()"></i></td>
+                </tr>
+                <tr>
+                    <th>userName</th>
+                    <td>{{receptionist.userName}}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{receptionist.gender}}</td>
+                </tr>
+                <tr>
+                    <th>Blood Type</th>
+                    <td>{{receptionist.bloodType}}</td>
+                </tr>
+                <tr>
+                    <th>phone Number</th>
+                    <td>{{receptionist.phoneNumber}}</td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td>{{receptionist.mail}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{receptionist.address}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="main">
+<app-show-appointment></app-show-appointment>
+    </div>
+</div>
+<div class="modal fade" [ngClass]="{'show':updateflag}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Update Profile</h3>
+                <button type="button" (click)="close()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="ReceptionistInfo" (ngSubmit)="update()" class="upddate-form">
+                    <div class="row">
+                        <div class="col-5">
+                            <label class="form-lable" for="receptionistfname">First Name</label>
+                            <input class="form-control"  type="text" name="receptionistfname" id="receptionistfname" formControlName="fname" 
+                            [ngClass]="{'is-invalid':((receptionistFirstName.touched&& receptionistFirstName.invalid)||(submitted&&receptionistFirstName.hasError('required'))||(submitted&&receptionistFirstName.hasError('min'))||(submitted&&receptionistFirstName.hasError('max')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{receptionistFirstName.touched&&receptionistFirstName.hasError('required')?"This field is reqired":''}}
+                                {{receptionistFirstName.touched&&receptionistFirstName.hasError('min')?"first name must be greater than 3":''}}
+                                {{receptionistFirstName.touched&&receptionistFirstName.hasError('max')?"first name must be less than 10":''}}
+                            </div>
+                            </div>
+                            <div class="col-5">
+                                <label class="form-lable" for="receptionistlname">Last Name</label>
+                                <input class="form-control"  type="text" name="receptionistlname" id="receptionistlname" formControlName="lname" 
+                                [ngClass]="{'is-invalid':((receptionistLastName.touched&& receptionistLastName.invalid)||(submitted&&receptionistLastName.hasError('required'))||(submitted&&receptionistLastName.hasError('min'))||(submitted&&receptionistLastName.hasError('max')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{receptionistLastName.touched&&receptionistLastName.hasError('required')?"This field is reqired":''}}
+                                {{receptionistLastName.touched&&receptionistLastName.hasError('min')?"last name must greater than 14 char":''}}
+                                {{receptionistLastName.touched&&receptionistLastName.hasError('max')?"last name must less than 25 char":''}}
+                            </div>
+                                </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="age">Age</label>
+                            <input class="form-control"  type="number" min="20" name="Date-of-Birth" id="Date-of-Birth" formControlName="age" 
+                            [ngClass]="{'is-invalid':((receptionistAge.touched&& receptionistAge.invalid)||(submitted&&receptionistAge.hasError('required'))||(submitted&&receptionistAge.hasError('min'))||(submitted&&receptionistAge.hasError('max')))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{receptionistAge.touched&&receptionistAge.hasError('required')?"This field is reqired":''}}
+                                {{receptionistAge.touched&&receptionistAge.hasError('min')?"age must be between 20 ad 90 year":''}}
+                                {{receptionistAge.touched&&receptionistAge.hasError('max')?"age must be between 20 ad 90 year":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="national id">Natinal Id</label>
+                            <input class="form-control" type="number" name="nid" id="national id" (change)="validationntionalid($event)" formControlName="nid" 
+                            [ngClass]="{'is-invalid':((receptionistNid.touched&& receptionistNid.invalid)||(submitted&&receptionistNid.hasError('required'))||(submitted&&receptionistNid.hasError('pattern'))||nationalidflag)}"
+                            />
+                            <div class="invalid-feedback">
+                                {{((receptionistNid.touched&& receptionistNid.invalid)||(submitted&&receptionistNid.hasError('required')))?"This field is reqired":''}}
+                                {{((receptionistNid.touched&& receptionistNid.invalid)||(submitted&&receptionistNid.hasError('pattern'))||nationalidflag)?"invalid national id":''}}
+                            </div>
+                            </div>
+                        <div class="col-5">
+                            <label for="phone">phone Number</label>
+                            <input class="form-control" type="tel" name="phone" id="phone" formControlName="phonenumber" 
+                    [ngClass]="{'is-invalid':((receptionistPhone.touched&& receptionistPhone.invalid)||(submitted&&receptionistPhone.hasError('required'))||(submitted&&receptionistPhone.hasError('pattern')))}"
+                    />
+                    <div class="invalid-feedback">
+                        {{((receptionistPhone.touched&& receptionistPhone.invalid)||(submitted&&receptionistPhone.hasError('required')))?"This field is reqired":''}}
+                        {{(receptionistPhone.touched&& receptionistPhone.invalid)||(submitted&&receptionistPhone.hasError('pattern'))?"invalid phone number":''}}
+                    </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="Email">Email</label>
+                            <input class="form-control" type="email" name="Email" id="Email" formControlName="mail" 
+                            />
+                            <div class="invalid-feedback">
+                                {{((receptionistMail.touched&&receptionistMail.hasError('email'))||(submitted&&receptionistMail.hasError('email')))?"invalid email format":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="address">Address</label>
+                            <input class="form-control" type="address" name="address" id="address" formControlName="address" 
+                            />
+                        </div>
+                        <div class="col-5">
+                                <label class="form-lable" for="gender">gender</label>
+                    <select id="gender" class="form-control" formControlName="gender"
+                    [ngClass]="{'is-invalid':((receptionistGender.touched&& receptionistGender.invalid)||(submitted&&receptionistGender.hasError('required')))}">
+                        <option vlaue="female">female</option>
+                        <option value="male">male</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        {{((receptionistGender.touched&& receptionistGender.invalid)||(submitted&&receptionistGender.hasError('required')))?"This field is reqired":''}}
+                        </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="bloodtype">bloodtype</label>
+                            <select id="bloodtype" class="form-control" formControlName="bloodtype"
+                            [ngClass]="{'is-invalid':((receptionistBloodType.touched&& receptionistBloodType.invalid)||(submitted&&receptionistBloodType.hasError('required')))}">
+                                <option vlaue="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option vlaue="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option vlaue="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option vlaue="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                {{((receptionistBloodType.touched&& receptionistBloodType.invalid)||(submitted&&receptionistBloodType.hasError('required')))?"This field is reqired":''}}
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <button class="update_btn"  type="submit">Update</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" [ngClass]="{'show':passwordflag}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Update Password</h3>
+                    <button type="button" (click)="openpassowordmodel()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form  [formGroup]="userpassword" (ngSubmit)="updatepassword()" class="upddate-form">
+                        <div class="row justify-content-center">
+                            <div class="col-5">
+                                <label class="form-lable" for="fname">New Password</label>
+                                <input class="form-control"  type="text" name="password" id="password" formControlName="password" 
+                                [ngClass]="{'is-invalid':((nursepassword.touched)&& nursepassword.invalid)||(submitted&&nursepassword.hasError('required'))}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{((nursepassword.touched)&& nursepassword.invalid)||(submitted&&nursepassword.hasError('required'))?"This field is reqired":''}}
+                                    {{nursepassword.touched&&nursepassword.hasError('minlength')?"min length 8":''}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row1">
+                            <button class="update_btn"  type="submit">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissible fade sucessmes" role="alert" [ngClass]="{'successshow':successflag}">
+            <strong>success !</strong>
+          </div>
+        <div class="alert alert-danger alert-dismissible fade errormes" role="alert" [ngClass]="{'errorshow':errorflag}">
+            error!
+          </div>
+</div>

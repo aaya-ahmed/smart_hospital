@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap/dist/css/bootstrap.css";
+::-webkit-scrollbar {
+    width: 1px;
+    height: 5px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 3px rgb(46, 44, 44);
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: rgb(44, 43, 43);
+    border-radius: 3px;
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #140606;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+html, body { height: 100%;
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+.mat-typography{
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}

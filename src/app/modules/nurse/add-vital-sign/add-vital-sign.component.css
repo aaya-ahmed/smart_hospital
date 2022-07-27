@@ -1,0 +1,81 @@
+.fluid-container{
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 1rem;
+ height: fit-content;
+ min-height: 100vh;
+}
+header{
+    width: 100%;
+text-align: center;
+background-color: #143961;
+color: white;
+margin: 0 auto;
+border-radius: 10px 10px 0 0px;
+}
+header h3{
+    width: 40%;
+    margin: 0 auto;
+    padding: 4px 0px;
+}
+
+.form-content
+{   background-color: #f9f9fb;
+    padding: 2% 5%;
+    margin-bottom: 4.5%;
+
+}
+.btnSubmit
+{
+    border:none;
+    border-radius:1.5rem;
+    padding: 1%;
+    width: 20%;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+    float: right;
+}
+.invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+  }
+.col-md-12,.col-md-6{
+    margin: 0.5rem 0;
+    font-weight: 500;
+}
+.note{
+    font-size: 30px;
+    font-weight: 600;
+    color: rgb(38, 43, 122);
+    border-bottom: 1px solid black;
+}
+@media(max-width:1115px){
+    .fluid-container{
+        width: 70%;
+height: fit-content;
+     
+    }   
+}
+.alert-dismissible{
+    position: fixed;
+    width: 25%;
+    padding: 0.8rem 1rem;
+    top: 13rem;
+    left: 39%;
+    z-index: 900;
+    display: none;
+}
+.successmes,.errormes{
+    display: none;
+    position: fixed;
+    top: 50%;
+}
+.successshow,.errorshow{
+    display: block;
+    opacity:1 ;
+}
+

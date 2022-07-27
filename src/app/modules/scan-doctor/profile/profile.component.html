@@ -1,0 +1,245 @@
+<div class="fluid-container">
+    <div class="sec-info">
+        <div class="photo">
+            <table>
+                <tr>
+                    <td class="col1"><img [src]="srcimage"></td>
+                </tr>
+                <tr>
+                    <td class="col2">{{doctor.firstName}}&nbsp;{{doctor.lastName}}</td>
+                </tr>
+                <tr>
+                    <td >*******
+                    <i class="fas fa-edit" title="change password" 
+                    style="color:green;padding:0.2rem 0 ;cursor: pointer;" (click)="openpassowordmodel()"></i></td>
+                </tr>
+                <tr>
+                    <td class="col3">
+                        <span class="col3-title">Age</span><span>{{doctor.age}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col4">
+                        <input type="file" id="actual-btn" hidden (change)="uploadfile($event)"/>
+                        <label for="actual-btn" id="actual-btn">Change Image</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="main-info">
+            <table>
+                <tr>
+                    <th>Information</th>
+                    <td class="info-col1"><i class="fas fa-edit" (click)="openmodel()"></i></td>
+                </tr>
+                <tr>
+                    <th>userName</th>
+                    <td>{{doctor.userName}}</td>
+                </tr>
+                
+                <tr>
+                    <th>Department</th>
+                    <td>{{doctor.departmentName}}</td>
+                </tr>
+                <tr>
+                    <th>Specialization</th>
+                    <td>{{doctor.docSpecialization}}</td>
+                </tr>
+                <tr>
+                    <th>Degree</th>
+                    <td>{{doctor.docDegree}}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{doctor.gender}}</td>
+                </tr>
+                <tr>
+                    <th>Blood Type</th>
+                    <td>{{doctor.bloodType}}</td>
+                </tr>
+                <tr>
+                    <th>phone Number</th>
+                    <td>{{doctor.phoneNumber}}</td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td>{{doctor.mail}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{doctor.address}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="main mt-1">
+        <div>
+            <app-requests></app-requests>
+        </div>
+    </div>
+</div>
+<div class="modal fade" [ngClass]="{'show':updateflag}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Update Profile</h3>
+                <button type="button" (click)="close()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="doctorInfo"  (ngSubmit)="update()" class="upddate-form">
+                    <div class="row">
+                        <div class="col-5">
+                            <label class="form-lable" for="fname">First Name</label>
+                            <input class="form-control"  type="text" name="fname" id="fname" formControlName="fname" 
+                            [ngClass]="{'is-invalid':(doctorFirstName.touched)&& doctorFirstName.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                {{doctorFirstName.touched&&doctorFirstName.hasError('required')?"This field is reqired":''}}
+                                {{doctorFirstName.touched&&doctorFirstName.hasError('pattern')?"character @ # / * etc.. not allowed":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="lname">Last Name</label>
+                            <input class="form-control"  type="text" name="fname" id="fname" formControlName="lname" 
+                            [ngClass]="{'is-invalid':(doctorLastName.touched)&& doctorLastName.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                {{doctorLastName.touched&&doctorLastName.hasError('required')?"This field is reqired":''}}
+                                {{doctorLastName.touched&&doctorLastName.hasError('pattern')?"character @ # / * etc.. not allowed":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="doctoruname">User Name</label>
+                            <input class="form-control" value="{{doctor.userName}}" type="text" name="doctoruname" id="doctoruname" formControlName="username" 
+                            [ngClass]="{'is-invalid':(doctorUserName.touched)&& doctorUserName.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                {{doctorUserName.touched&&doctorUserName.hasError('required')?"This field is reqired":''}}
+                                {{doctorUserName.touched&&doctorUserName.hasError('pattern')?"character @ # / * etc.. not allowed":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="nid">National Id</label>
+                            <input class="form-control"  type="text" name="fname" id="fname" formControlName="nid" 
+                            [ngClass]="{'is-invalid':(doctorNationalId.touched)&& doctorNationalId.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                {{doctorNationalId.touched&&doctorNationalId.hasError('required')?"This field is reqired":''}}
+                                {{doctorNationalId.touched&&doctorNationalId.hasError('pattern')?"character @ # / * etc.. not allowed":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="age">Age</label>
+                            <input class="form-control" value="{{doctor.age}}" type="number" min="20" name="Date-of-Birth" id="Date-of-Birth" formControlName="age" 
+                            [ngClass]="{'is-invalid':(doctorAge.touched&& doctorAge.invalid)||(doctorAge.touched&&doctorAge.hasError('max'))||(doctorAge.touched&&doctorAge.hasError('min'))}"
+                            />
+                            <div class="invalid-feedback">
+                                {{doctorAge.touched&&doctorAge.hasError('required')?"This field is reqired":''}}
+                                {{doctorAge.touched&&doctorAge.hasError('min')?"age must be between 20 ad 90 year":''}}
+                                {{doctorAge.touched&&doctorAge.hasError('max')?"age must be between 20 ad 90 year":''}}
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="gender">gender</label>
+                <select id="gender" class="form-select" formControlName="gender"
+                [ngClass]="{'is-invalid':(doctorGender.touched&& doctorGender.invalid&&doctorGender.hasError('required'))}">
+                    <option vlaue="female">female</option>
+                    <option value="male">male</option>
+                </select>
+                <div class="invalid-feedback">
+                    {{doctorGender.touched&&doctorGender.hasError('required')?"This field is reqired":''}}
+                    </div>
+                    </div>
+                        <div class="col-5">
+                            <label for="phone">phone Number</label>
+                            <input class="form-control" type="tel" name="phone" id="phone" formControlName="phonenumber" 
+                    [ngClass]="{'is-invalid':(doctorPhone.touched)&& doctorPhone.invalid}"
+                    />
+                    <div class="invalid-feedback">
+                        {{doctorPhone.touched&&doctorPhone.hasError('required')?"This field is reqired":''}}
+                        {{doctorPhone.touched&&doctorPhone.hasError('pattern')?"must 11 number and start with 010,011,012 or 015":''}}
+                    </div>
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="Email">Email</label>
+                            <input class="form-control" type="email" name="Email" id="Email" formControlName="mail" 
+                            [ngClass]="{'is-invalid':(doctorMail.touched)&& doctorMail.invalid}"
+                            />
+                            <div class="invalid-feedback">
+                                {{doctorMail.touched&&doctorMail.hasError('required')?"This field is reqired":''}}
+                                {{doctorMail.touched&&doctorMail.hasError('email')?"must in email format ex xx@xxxx.eg or com":''}}
+                            </div>
+                        </div>     
+                        <div class="col-5">
+                            <label class="form-lable" for="fname">Address</label>
+                            <input class="form-control"  type="text" name="fname" id="fname" formControlName="address" 
+                            />
+                        </div>
+                        <div class="col-5">
+                            <label class="form-lable" for="bloodtype">bloodtype</label>
+                            <select id="bloodtype" class="form-select" formControlName="bloodtype"
+                            [ngClass]="{'is-invalid':(doctorBloodType.touched)&& doctorBloodType.invalid}">
+                                <option vlaue="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option vlaue="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option vlaue="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option vlaue="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                {{doctorBloodType.touched&&doctorBloodType.hasError('required')?"This field is reqired":''}}
+                                </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row1">
+                        <button class="update_btn"  type="submit">Update</button>
+                    </div>
+                    </form>
+                </div>
+                <div class="alert alert-success alert-dismissible fade successmes" role="alert" [ngClass]="{'successshow':successflag}">
+                    <strong>success !</strong>
+                  </div>
+                <div class="alert alert-danger alert-dismissible fade errormes" role="alert" [ngClass]="{'errorshow':errorflag}">
+                    error!
+                  </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" [ngClass]="{'show':passwordflag}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Update Profile</h3>
+                    <button type="button" (click)="openpassowordmodel()" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="fa-solid fa-xmark"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form  [formGroup]="userpassword" (ngSubmit)="updatepassword()" class="upddate-form">
+                        <div class="row justify-content-center">
+                            <div class="col-5">
+                                <label class="form-lable" for="fname">New Password</label>
+                                <input class="form-control"  type="text" name="password" id="password" formControlName="password" 
+                                [ngClass]="{'is-invalid':(doctorpassword.touched)&& doctorpassword.invalid&&doctorpassword.hasError('required')}"
+                                />
+                                <div class="invalid-feedback">
+                                    {{doctorpassword.touched&&doctorpassword.hasError('required')?"This field is reqired":''}}
+                                    {{doctorpassword.touched&&doctorpassword.hasError('minlength')?"min length 8":''}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row1">
+                            <button class="update_btn"  type="submit">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 

@@ -1,0 +1,70 @@
+<div class="fluid-container" id="container" #container>
+    <form class="form" #ray="ngForm" (ngSubmit)="submit(ray)">
+        <div class="sec-data row" id="sec-data">
+            <table>
+                <tr>
+                    <th>Doctor Name</th>
+                    <td>
+                        {{this.request.doctorName}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Patient Name</th>
+                    <td>
+                        {{this.request.patientName}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>
+                        {{dateray|date:'yyyy-MM-dd'}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Scan Name</th>
+                    <td>
+                        {{this.request.scanName}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div  >
+        <div class="sec-image row d-flex w-100" id="sec-image" *ngFor="let image of imagelist;let j=index">
+            <button class="xmark_btn" (click)="cancelimage(j)"><i class="fa-solid fa-xmark"></i></button>
+            <img  [src]="image" alt="" id="rayimage">
+        </div>
+        <div class="invalid-feedback">
+            {{ray?.['submitted']&&imageflag?"this field is required":''}}
+        </div>  
+    </div>
+        <div class="sec-image row">
+            <label id="upload" for="file">Upload Ray</label>
+            <input type="file" id="file" name="images" accept="image/*" (change)="uploadfile($event)" multiple required
+            />
+
+        </div>
+        <div class="sec-data row">
+            <label for="report"><strong>Report</strong></label>
+            <textarea cols="20" rows="10" id="report" name="report" ngModel #report="ngModel" required
+            [ngClass]="{'is-invalid':((report.touched&& report.invalid)||(submitted&&report.hasError('required')))}"
+            ></textarea>
+            <div class="invalid-feedback">
+                {{((report.touched&&report.invalid)||(report.hasError('required')&&submitted))?"this field is required":''}}
+            </div>
+        </div>
+        <div class="sec-submit row ">
+            <div class="col-3 d-flex ">
+                <input type="submit" value="submit"  />
+                <button class="mx-1" (click)="cancel()"> cancel </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="successstate" class="alert alert-success alert-dismissible fade show">
+    <strong>Success!</strong>
+</div>
+
+<div *ngIf="faildstate" class="alert alert-danger alert-dismissible fade show">
+    <strong>Error!</strong>
+</div>

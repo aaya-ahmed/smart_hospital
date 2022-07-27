@@ -1,0 +1,111 @@
+
+<div class="container container-fluid">
+    
+    <div class="container-fluid lab-form">
+        <br/>
+        <div class="header"><h3>LABORATORY REPORT</h3> </div>
+        <form #labdata="ngForm" [formGroup]="myForm" #testForm="ngForm" (ngSubmit)="paramtersvalue()">
+            <div class="respo patient-info">
+                <table>
+                    <tr>
+                        <td>Patient Name</td>
+                        <td><input type="text" name="pname" id="pname" [value]="request.patientName" disabled class="form-control" /></td>
+                        <td>Doctor Name</td>
+                        <td><input type="text" name="docname" [value]="request.doctorName" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                        <td>Age</td>
+                        <td><input type="text" name="age" id="age" [value]="patAge"  disabled class="form-control"></td>
+                        <td>Sex</td>
+                        
+                        <td><input type="text" name="sex" id="sex"  [value]="patGender" disabled class="form-control"></td>
+                        
+                        
+                    </tr>
+                    <tr>
+                        <td>Patient Phone Number</td>
+                        <td><input type="text" name="phone" [value]="patPhone" disabled class="form-control" /></td>
+                
+                        <td>Date</td>
+                        <td><input type="text" value="{{date|date}}" class="form-control" disabled /></td>
+
+                    </tr>
+                </table>
+                
+            </div>
+            
+            <div class="test-name"><h3><strong>{{request.labName}}</strong></h3> </div>
+            <div class="test-info">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Parameter Name</th>
+                            <th>Result</th>
+                            <th>Unit</th>
+                            <th>Normal Range</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  *ngFor="let num of numParam;">
+                            
+                            <td>{{num.testParameterName}}</td>
+                            <td>
+                                <input type="text" [formControlName]="num.testParameterName"  [name]="num.testParameterName" class="form-control"
+                                    id="{{num.id}}"  required  
+                                    [ngClass]="(myForm.get(num.testParameterName)?.touched || myForm.get(num.testParameterName)?.dirty
+                                    ||testForm?.['submitted'])&& myForm.get(num.testParameterName)?.hasError('required')
+                                    ? 'is-invalid' : '' || myForm.get(num.testParameterName)?.hasError('pattern')
+                                    ? 'is-invalid' : '' || ((myForm.get(num.testParameterName)?.touched || myForm.get(num.testParameterName)?.dirty)&& !myForm.get(num.testParameterName)?.invalid)
+                                    ?  'is-valid' : '' " />
+                                <div class="invalid-feedback">
+                                    {{myForm.get(num.testParameterName)?.hasError('required')?"This field is reqired":''}}
+                                    {{myForm.get(num.testParameterName)?.hasError('pattern')?"not correct":''}}
+                                    
+                                </div>
+                                
+                            </td>
+                            
+                            <td>{{num.unit}}</td>
+                            <td>{{num.min_Range}}-{{num.max_Range}}</td>
+                            
+                        </tr>
+                        <tr *ngFor="let cat of catParam">
+                            <td>{{cat.testParameterName}}</td>
+                            <td>
+                                <input type="text" [formControlName]="cat.testParameterName" #cat.testParameterName [name]="cat.testParameterName" class="form-control" 
+                                    
+                                [ngClass]="(myForm.get(cat.testParameterName)?.touched || myForm.get(cat.testParameterName)?.dirty
+                                    ||testForm?.['submitted'])&& myForm.get(cat.testParameterName)?.hasError('required')
+                                    ? 'is-invalid' : '' || myForm.get(cat.testParameterName)?.hasError('pattern')
+                                    ? 'is-invalid' : '' || ((myForm.get(cat.testParameterName)?.touched || myForm.get(cat.testParameterName)?.dirty)&& !myForm.get(cat.testParameterName)?.invalid)
+                                    ?  'is-valid' : '' " />
+                                <div class="invalid-feedback">
+                                    {{myForm.get(cat.testParameterName)?.hasError('required')?"This field is reqired":''}}
+                                    {{myForm.get(cat.testParameterName)?.hasError('pattern')?"not correct":''}}
+                                </div>  
+                            </td> 
+                            <td>{{cat.unit}}</td>  
+                            <td>{{cat.normalvalue}}</td> 
+                        </tr>
+                    </tbody>
+                    
+                </table>
+                
+                   
+            </div>
+          
+            <input type="submit" class="btn" value="Submit" />
+          
+        </form>
+        <div *ngIf="testSubmitted ;then submittedtrue"></div>
+            <ng-template #submittedtrue>
+                
+                <div class="alert alert-info alert-dismissible fade show"> 
+                    <h4 class="alert-heading">Success!</h4> Test Result Added successfully..  
+                    <button type="button"class="btn"  (click)="reload()">Ok</button>  
+                    
+                </div> 
+                
+            </ng-template>
+    </div>
+</div>

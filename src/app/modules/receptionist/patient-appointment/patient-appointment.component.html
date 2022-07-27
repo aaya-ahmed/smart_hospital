@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row row1">
+        <div class="col-md-5 justify-content-center header">
+            <p>Appointments' Patient</p>
+        </div>
+    </div>
+    <form class="row">
+        <div class="col-3">
+            <label>Patient</label>
+            <select class="form-control" #patient>
+                <option></option>
+                <option *ngFor="let i of patients let j=index" value="{{j}}">{{i.firstName}}{{i.lastName}}</option>
+            </select>
+        </div>
+        <div class="col-3" id="submit_btn">
+            <button type="submit" class="submit_btn" (click)="getappoint(patient)"> Search</button>
+        </div>
+    </form>
+    <hr>
+    <div *ngIf="appointflag"  class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Doctor Name</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Time</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of appointment;let j =index">
+                        <td>{{j+1}}</td>
+                        <td>{{i.doctorName}}</td>
+                        <td>{{i.gender}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.slotTime}}</td>
+                        <td>{{i.appointmentDate.substring(0,10)}}</td>
+                    </tr>
+                </tbody>
+        
+            </table>
+        </div>
+    </div>
+    <div *ngIf="!appointflag" class="noappoint-sec"><p>No Appointments</p></div>
+</div>

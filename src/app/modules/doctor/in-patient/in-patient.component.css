@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+.container1{
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 2.5vh;
+    overflow-y: auto;
+}
+.patientinformation{
+    width: 100%;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    background-color: #ffffffb8;
+    padding:.3rem;
+    margin: 0 auto 1rem auto;
+}
+table{
+    width: 100%;
+    margin: 0 auto;
+    padding:1rem ;
+
+}
+table tr th{
+    padding: 0.3rem 0;
+    width: 150px;
+}
+.container{
+    width: 100%;
+    margin: 0rem auto 2rem auto;
+  }
+.container ul{
+    width: 100%;
+    list-style: none;
+}
+.container ul li{
+    width: 100%;
+}
+.container ul li .link1,
+.container ul li .link2,
+.container ul li .link3,
+.container ul li .link4,.container ul li .link5,.container ul li .link6,.container ul li .link7{
+    width: 100%;
+    padding: 1rem;
+    cursor: pointer;
+    border-bottom: 2px solid black;
+    color: white;
+    font-size: 22px;
+}
+.hiddensection{
+    display: none;
+}
+.link1{
+    background-color: rgb(94,166,161)
+}
+.link2{
+    background-color: rgb(105, 179, 174)
+}
+.link3{
+    background-color: rgb(122, 196, 191)
+}
+.link4{
+    background-color: rgb(133, 209, 204)
+}
+.link5{
+    background-color: rgb(148, 219, 215)
+}
+.link6{
+    background-color: rgb(164, 231, 228)
+}
+.link7{
+    background-color: rgb(180, 241, 238)
+}
+.fa-chevron-down{
+    font-size: 12px;
+    float: right;
+    margin:0 1rem;
+}
+.show{
+    display: block;
+    height: fit-content;
+}
+@media (min-width: 576px){
+.container, .container-sm {
+    max-width: 100%;
+}}
+
+
+
+
+
