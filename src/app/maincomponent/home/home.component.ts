@@ -5,7 +5,7 @@ import { LogInAndOutService } from 'src/app/services/log-in-and-out.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css','./homemedia.css']
 })
 export class HomeComponent implements OnInit {
   //in small screen the navbar  will be list , so making navbar flag to open and close this list
