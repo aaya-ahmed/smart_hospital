@@ -6,7 +6,7 @@ import { signupdata } from '../models/reg';
   providedIn: 'root'
 })
 export class SignupService {
- private registpatienturl:string="http://192.168.1.36:5200/api/Patient";
+ private registpatienturl:string="https://smarthospital20220729232305.azurewebsites.net/api/Patient";
  //private registpatienturl:string="http://192.168.181.252:5050/api/";
 
  //private registpatienturl:string="https://localhost:7163/api/Patient";

@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
       ///set nurse info
       this.nurse=localStorage.getItem("userInfo")
       this.nurse=JSON.parse(this.nurse)
-      this.srcimage="https://localhost:7163/"+this.nurse.imageName+"?t=" + new Date().getTime()
+      this.srcimage="https://smarthospital20220729232305.azurewebsites.net/"+this.nurse.imageName+"?t=" + new Date().getTime()
       this.department=this.nurse.departmentName
       /////get all in patient
       let departmentid=this.nurse.departmentId
@@ -205,7 +205,7 @@ get nursepassword(){
           this.nurse=res
           localStorage.removeItem("Info")
           localStorage.setItem("Info",JSON.stringify(this.nurse))
-          this.srcimage="https://localhost:7163/"+res.imageName+"?t=" + new Date().getTime()  
+          this.srcimage="https://smarthospital20220729232305.azurewebsites.net/"+res.imageName+"?t=" + new Date().getTime()  
           }
         )
          });

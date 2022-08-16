@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
     if(localStorage.getItem("userRole")=="admin"){
       this.admin=localStorage.getItem("userInfo")
       this.admin=JSON.parse(this.admin)
-      this.imagesrc="https://localhost:7163/"+this.admin.imageName+"?t="+new Date().getTime()
+      this.imagesrc="https://smarthospital20220729232305.azurewebsites.net/"+this.admin.imageName+"?t="+new Date().getTime()
       this.today=this.today.toISOString().substring(0,10)
       this.service.get("Admin/GetNumbers/"+this.today).subscribe(
         (res:any)=>{
@@ -167,7 +167,7 @@ export class ProfileComponent implements OnInit {
            this.admin=res
            localStorage.removeItem("userInfo")
            localStorage.setItem("userInfo",JSON.stringify(this.admin))
-           this.imagesrc="https://localhost:7163/"+this.admin.imageName+"?t="+new Date().getTime()
+           this.imagesrc="https://smarthospital20220729232305.azurewebsites.net/"+this.admin.imageName+"?t="+new Date().getTime()
           }
         )
            });

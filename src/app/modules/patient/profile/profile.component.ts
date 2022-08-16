@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
     if(localStorage.getItem("userInfo")){
       this.patient=localStorage.getItem("userInfo")
       this.patient=JSON.parse(this.patient)
-      this.srcimage="https://localhost:7163/"+this.patient.imageName+"?t="+new Date().getTime()
+      this.srcimage="https://smarthospital20220729232305.azurewebsites.net/"+this.patient.imageName+"?t="+new Date().getTime()
      }
      this.service.get("Appointment/GetAppointmentsByPatientId/"+this.patient.id).subscribe(
       (res:any)=>{
@@ -227,7 +227,7 @@ update(){
          this.patient=res
          localStorage.removeItem("userInfo")
          localStorage.setItem("userInfo",JSON.stringify(this.patient))
-         this.srcimage="https://localhost:7163/"+this.patient.imageName+"?t="+new Date().getTime()
+         this.srcimage="https://smarthospital20220729232305.azurewebsites.net/"+this.patient.imageName+"?t="+new Date().getTime()
         }
       )
          });

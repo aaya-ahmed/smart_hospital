@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
     if(localStorage.getItem("userInfo")){
       this.doctor=localStorage.getItem("userInfo")
       this.doctor=JSON.parse(this.doctor)
-      this.srcimage="https://localhost:7163/"+ this.doctor.imageName+"?t="+new Date().getTime()
+      this.srcimage="https://smarthospital20220729232305.azurewebsites.net/"+ this.doctor.imageName+"?t="+new Date().getTime()
      }    
     }
     get doctorAge(){
@@ -163,7 +163,7 @@ export class ProfileComponent implements OnInit {
           doctor.image=this.imagebase64
           this.service.update("Doctor/update",doctor).subscribe(
            (res:any)=>{
-             this.srcimage="https://localhost:7163/"+res.image+"?t="+new Date().getTime()
+             this.srcimage="https://smarthospital20220729232305.azurewebsites.net/"+res.image+"?t="+new Date().getTime()
             }
           )
            });

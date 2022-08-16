@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
     if(localStorage.getItem("userInfo")){
       this.receptionist=localStorage.getItem("userInfo")
       this.receptionist=JSON.parse(this.receptionist)
-      this.imagesrc="https://localhost:7163/"+this.receptionist.imageName+"?t="+new Date().getTime()
+      this.imagesrc="https://smarthospital20220729232305.azurewebsites.net/"+this.receptionist.imageName+"?t="+new Date().getTime()
      }
     }
     get receptionistFirstName(){
@@ -150,7 +150,7 @@ export class ProfileComponent implements OnInit {
            this.receptionist=res
            localStorage.removeItem("userInfo")
            localStorage.setItem("Info",JSON.stringify(this.receptionist))
-           this.imagesrc="https://localhost:7163/"+this.receptionist.imageName+"?t="+new Date().getTime()
+           this.imagesrc="https://smarthospital20220729232305.azurewebsites.net/"+this.receptionist.imageName+"?t="+new Date().getTime()
           }
         )
            });
