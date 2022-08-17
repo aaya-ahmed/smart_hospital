@@ -5,7 +5,7 @@ import { LoginComponent } from './maincomponent/login/login.component';
 import { RegComponent } from './maincomponent/reg/reg.component';
 
 const routes: Routes = [
-   {path:'',component:HomeComponent},
+   {path:' ',component:HomeComponent},
    {path:'home',component:HomeComponent},
    {path:'login',component:LoginComponent},
    {path:'reg',component:RegComponent},{path: 'admin', loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule) },
