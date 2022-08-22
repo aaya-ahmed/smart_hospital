@@ -12,10 +12,9 @@ export class LogInAndOutService {
   private baseurl:string="https://smarthospital20220729232305.azurewebsites.net/api/Authentication/login";
   private usertoken:any
   constructor(private http:HttpClient) { }
-  //private baseurl:string="http://192.168.181.252:5050/api/Authentication/login";
   auth_user(user:logindata){
     return this.http.post(this.baseurl,user);
-  }
+    }
   getinfo(role:string,id:number):Observable<any> {
     if(role.toLowerCase ()=="doctor"){
       this.usertoken=localStorage.getItem("userToken")

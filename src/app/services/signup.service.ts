@@ -7,9 +7,7 @@ import { signupdata } from '../models/reg';
 })
 export class SignupService {
  private registpatienturl:string="https://smarthospital20220729232305.azurewebsites.net/api/Patient";
- //private registpatienturl:string="http://192.168.181.252:5050/api/";
-
- //private registpatienturl:string="https://localhost:7163/api/Patient";
+ 
   constructor(private http:HttpClient) { }
   addpatient(patient:signupdata){
    return this.http.post<any>(this.registpatienturl,patient);
