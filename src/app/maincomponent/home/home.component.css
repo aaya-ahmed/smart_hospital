@@ -25,7 +25,7 @@ header .logo{
     float: right;
 }
 nav{
-    justify-content: end;
+    justify-content: flex-end;
 }
 .navbar {
     width: 100%;

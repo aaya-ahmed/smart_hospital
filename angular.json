@@ -121,5 +121,8 @@
       }
     }
   },
-  "defaultProject": "smart_hospital"
+  "defaultProject": "smart_hospital",
+  "cli": {
+    "analytics": "2bede938-840d-48b7-b308-62f565806a93"
+  }
 }

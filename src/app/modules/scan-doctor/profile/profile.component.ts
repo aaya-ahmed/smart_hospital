@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
     if(localStorage.getItem("userInfo")){
       this.doctor=localStorage.getItem("userInfo")
       this.doctor=JSON.parse(this.doctor)
-      this.srcimage="https://smarthospital20220729232305.azurewebsites.net/api/"+ this.doctor.imageName+"?t="+new Date().getTime()
+      this.srcimage="http://smarthospital.somee.com/api/"+ this.doctor.imageName+"?t="+new Date().getTime()
      }
   
     
@@ -175,7 +175,7 @@ export class ProfileComponent implements OnInit {
           doctor.image=this.imagebase64
           this.service.update("Doctor/update",doctor).subscribe(
            (res:any)=>{
-             this.srcimage="https://smarthospital20220729232305.azurewebsites.net/api/"+res.image+"?t="+new Date().getTime()
+             this.srcimage="http://smarthospital.somee.com/api/"+res.image+"?t="+new Date().getTime()
             }
           )
            });

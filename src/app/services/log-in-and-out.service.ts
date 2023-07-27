@@ -9,43 +9,29 @@ import { Observable } from 'rxjs';
 export class LogInAndOutService {
   user:any;
   private logoutstate:boolean=true
-  private baseurl:string="https://smarthospital20220729232305.azurewebsites.net/api/Authentication/login";
+  private baseurl:string="http://smarthospital.somee.com/api/Authentication/login";
   private usertoken:any
   constructor(private http:HttpClient) { }
   auth_user(user:logindata){
     return this.http.post(this.baseurl,user);
     }
   getinfo(role:string,id:number):Observable<any> {
+    this.usertoken=localStorage.getItem("userToken")
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.usertoken}`);
     if(role.toLowerCase ()=="doctor"){
-      this.usertoken=localStorage.getItem("userToken")
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${this.usertoken}`);
-      this.user= this.http.get("https://smarthospital20220729232305.azurewebsites.net/api/Doctor/"+id,{ headers: headers })
-      //this.user= this.http.get("http://192.168.181.252:5050/api/Doctor/"+id,{ headers: headers });
+      this.user= this.http.get("http://smarthospital.somee.com/api/Doctor/"+id,{ headers: headers })
       }
     else if(role.toLowerCase ()=="nurse"){
-      
-      this.usertoken=localStorage.getItem("userToken")
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${this.usertoken}`);
-      this.user= this.http.get("https://smarthospital20220729232305.azurewebsites.net/api/Nurse/"+id,{ headers: headers });
-      //this.user= this.http.get("http://192.168.181.252:5050/api/Nurse/"+id,{ headers: headers });
+      this.user= this.http.get("http://smarthospital.somee.com/api/Nurse/"+id,{ headers: headers });
       }
     else if(role.toLowerCase ()=="admin"){
-      this.usertoken=localStorage.getItem("userToken")
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${this.usertoken}`);
-      this.user= this.http.get("https://smarthospital20220729232305.azurewebsites.net/api/Admin/admin/"+id,{ headers: headers });
-      //this.user= this.http.get("http://192.168.181.252:5050/api/Admin/admin/"+id,{ headers: headers });
+      this.user= this.http.get("http://smarthospital.somee.com/api/Admin/admin/"+id,{ headers: headers });
       }
     else if(role.toLowerCase ()=="receptionist"){
-      this.usertoken=localStorage.getItem("userToken")
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${this.usertoken}`);
-      this.user= this.http.get("https://smarthospital20220729232305.azurewebsites.net/api/Admin/receptionist/"+id,{ headers: headers });
-      //this.user= this.http.get("http://192.168.181.252:5050/api/Admin/receptionist/"+id,{ headers: headers });
+      this.user= this.http.get("http://smarthospital.somee.com/api/Admin/receptionist/"+id,{ headers: headers });
       }
     else if(role.toLowerCase ()=="patient"){
-      this.usertoken=localStorage.getItem("userToken")
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${this.usertoken}`);
-      this.user= this.http.get("https://smarthospital20220729232305.azurewebsites.net/api/Patient/"+id,{ headers: headers });
-      //this.user= this.http.get("http://192.168.181.252:5050/api/Patient/"+id,{ headers: headers });
+      this.user= this.http.get("http://smarthospital.somee.com/api/Patient/"+id,{ headers: headers });
     }
       this.logoutstate=false
       return this.user

@@ -13,7 +13,7 @@ import { requestvital, showvitalnurse } from '../models/vital-sign';
 })
 export class ServicesService {
  
-  private url:string="https://smarthospital20220729232305.azurewebsites.net/api/";
+  private url:string="http://smarthospital.somee.com/api/";
   private aiurl:string="http://127.0.0.1:5000/predict_ecg"
   private usertoken:any
   constructor(private http:HttpClient) {}

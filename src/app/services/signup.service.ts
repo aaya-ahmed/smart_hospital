@@ -6,7 +6,7 @@ import { signupdata } from '../models/reg';
   providedIn: 'root'
 })
 export class SignupService {
- private registpatienturl:string="https://smarthospital20220729232305.azurewebsites.net/api/Patient";
+ private registpatienturl:string="http://smarthospital.somee.com/api/Patient";
  
   constructor(private http:HttpClient) { }
   addpatient(patient:signupdata){

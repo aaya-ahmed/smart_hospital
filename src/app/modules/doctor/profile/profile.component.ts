@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
       this.doctor=localStorage.getItem("userInfo")
       this.doctor=JSON.parse(this.doctor)
      }
-    this.imagesrc="https://smarthospital20220729232305.azurewebsites.net/api/"+this.doctor.imageName+"?t="+new Date().getTime()
+    this.imagesrc="http://smarthospital.somee.com/api/"+this.doctor.imageName+"?t="+new Date().getTime()
     this.todayDate=this.today.toISOString().substring(0,10)
     this.service.get("Appointment/GetAppointmentsForTodayByDoctorId/"+this.doctor.id+"/"+this.todayDate).subscribe(
       (res:any)=>{
@@ -216,7 +216,7 @@ export class ProfileComponent implements OnInit {
            this.doctor=res
            localStorage.removeItem("userInfo")
            localStorage.setItem("userInfo",JSON.stringify(this.doctor))
-           this.imagesrc="https://smarthospital20220729232305.azurewebsites.net/api/"+this.doctor.imageName+"?t="+new Date().getTime()
+           this.imagesrc="http://smarthospital.somee.com/api/"+this.doctor.imageName+"?t="+new Date().getTime()
           }
         )
            });
